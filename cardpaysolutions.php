@@ -108,12 +108,12 @@ class Cardpaysolutions extends PaymentModule
 
 		$output = $this->context->smarty->fetch($this->local_path.'views/templates/admin/configure.tpl');
 
-		if (Tools::isSubmit('submitCardpaysolutionsModule')) 
+		if (Tools::isSubmit('submitCardpaysolutionsModule'))
 		{
 			if (Tools::getIsset(Tools::getValue('CARDPAYSOLUTIONS_ACCOUNT_USERNAME'))
 				&& Tools::getIsset(Tools::getValue('CARDPAYSOLUTIONS_ACCOUNT_PASSWORD'))
 				&& !empty(Tools::getValue('CARDPAYSOLUTIONS_ACCOUNT_USERNAME'))
-				&& !empty(Tools::getValue('CARDPAYSOLUTIONS_ACCOUNT_PASSWORD'))) 
+				&& !empty(Tools::getValue('CARDPAYSOLUTIONS_ACCOUNT_PASSWORD')))
 			{
 				$output .= $this->displayConfirmation($this->l('Configuration values successfully saved.'));
 				$this->postProcess();
@@ -523,7 +523,7 @@ class Cardpaysolutions extends PaymentModule
 	{
 		if (!$this->active)
 			return;
-		
+
 		if (!Configuration::get('CARDPAYSOLUTIONS_ACCOUNT_USERNAME') || !Configuration::get('CARDPAYSOLUTIONS_ACCOUNT_PASSWORD'))
 			return false;
 
@@ -545,7 +545,8 @@ class Cardpaysolutions extends PaymentModule
 	{
 		$cart = $this->context->cart;
 
-		if (Validate::isLoadedObject($cart) && !Order::getOrderByCartId((int)Tools::getValue('cart'))) {
+		if (Validate::isLoadedObject($cart) && !Order::getOrderByCartId((int)Tools::getValue('cart')))
+		{
 			$username       = Configuration::get('CARDPAYSOLUTIONS_LIVE_MODE') ? Configuration::get('CARDPAYSOLUTIONS_ACCOUNT_USERNAME') : 'demo';
 			$password       = Configuration::get('CARDPAYSOLUTIONS_LIVE_MODE') ? Configuration::get('CARDPAYSOLUTIONS_ACCOUNT_PASSWORD') : 'password';
 			$customer       = new Customer((int)$cart->id_customer);
@@ -572,7 +573,8 @@ class Cardpaysolutions extends PaymentModule
 			$query  = trim($query, '&');
 			$result = $this->doPost($query);
 
-			if ($result['response'] == 1) {
+			if ($result['response'] == 1)
+			{
 				$this->insertTransaction(array(
 					'id_cart' => (int)$cart->id,
 					'trans_type' => pSQL(Configuration::get('CARDPAYSOLUTIONS_DEFAULT_TYPE')),
@@ -593,9 +595,11 @@ class Cardpaysolutions extends PaymentModule
 				Configuration::updateValue('CARDPAYSOLUTIONS_CONFIGURATION_OK', true);
 
 				/** @since 1.5.0 Attach the Transaction ID to this Order */
-				if (version_compare(_PS_VERSION_, '1.5', '>=')) {
+				if (version_compare(_PS_VERSION_, '1.5', '>='))
+				{
 					$new_order = new Order((int)$this->currentOrder);
-					if (Validate::isLoadedObject($new_order)) {
+					if (Validate::isLoadedObject($new_order))
+					{
 						$payment                     = $new_order->getOrderPaymentCollection();
 						$payment[0]->transaction_id  = $result['transactionid'];
 						$payment[0]->card_number     = Tools::substr(Tools::getValue('ccnumber'), -4);
@@ -711,15 +715,15 @@ class Cardpaysolutions extends PaymentModule
 		curl_setopt($ch, CURLOPT_NOPROGRESS, 1);
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
 
-		if (!($data = curl_exec($ch))) {
+		if (!($data = curl_exec($ch)))
 			return ERROR;
-		}
 		curl_close($ch);
 		unset($ch);
 		$data = explode('&', $data);
 		$count = count($data);
-		for ($i = 0; $i < $count; $i++) {
-			$rdata = explode("=", $data[$i]);
+		for ($i = 0; $i < $count; $i++)
+		{
+			$rdata = explode('=', $data[$i]);
 			$response = array();
 			$response[$rdata[0]] = $rdata[1];
 		}
