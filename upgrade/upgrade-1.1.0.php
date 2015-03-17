@@ -31,7 +31,7 @@ if (!defined('_PS_VERSION_'))
  * Function used to update your module from previous versions to the version 1.1,
  * Don't forget to create one file per version.
  */
-function upgradeModule_1_1_0($module)
+function upgradeModule110($module)
 {
 	/**
 	 * Do everything you want right there,
