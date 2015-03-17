@@ -19,7 +19,7 @@
  * needs please refer to http://www.prestashop.com for more information.
  *
  *  @author    PrestaShop SA <contact@prestashop.com>
- *  @copyright 2007-2014 PrestaShop SA
+ *  @copyright 2007-2015 PrestaShop SA
  *  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
@@ -71,7 +71,7 @@ class Cardpaysolutions extends PaymentModule
 		Configuration::updateValue('CARDPAYSOLUTIONS_JC_ENABLED', false);
 		Configuration::updateValue('CARDPAYSOLUTIONS_DN_ENABLED', false);
 		
-		include(dirname(__FILE__) . '/sql/install.php');
+		include(dirname(__FILE__).'/sql/install.php');
 		
 		return parent::install() && $this->registerHook('header') && $this->registerHook('payment') && $this->registerHook('paymentTop') && $this->registerHook('BackOfficeHeader') && $this->registerHook('orderConfirmation') && $this->registerHook('displayAdminOrderTabOrder') && $this->registerHook('displayAdminOrderContentOrder');
 	}
@@ -89,7 +89,7 @@ class Cardpaysolutions extends PaymentModule
 		Configuration::deleteByName('CARDPAYSOLUTIONS_JC_ENABLED');
 		Configuration::deleteByName('CARDPAYSOLUTIONS_DN_ENABLED');
 		
-		include(dirname(__FILE__) . '/sql/uninstall.php');
+		include(dirname(__FILE__).'/sql/uninstall.php');
 		
 		return parent::uninstall();
 	}
@@ -104,10 +104,10 @@ class Cardpaysolutions extends PaymentModule
 		 */
 		$this->context->smarty->assign('module_dir', $this->_path);
 		
-		$output = $this->context->smarty->fetch($this->local_path . 'views/templates/admin/configure.tpl');
+		$output = $this->context->smarty->fetch($this->local_path.'views/templates/admin/configure.tpl');
 		
 		if (Tools::isSubmit('submitCardpaysolutionsModule')) {
-			if (isset($_POST['CARDPAYSOLUTIONS_ACCOUNT_USERNAME']) && isset($_POST['CARDPAYSOLUTIONS_ACCOUNT_PASSWORD']) && !empty($_POST['CARDPAYSOLUTIONS_ACCOUNT_USERNAME']) && !empty($_POST['CARDPAYSOLUTIONS_ACCOUNT_PASSWORD'])) {
+			if (Tools::getIsset(Tools::getValue('CARDPAYSOLUTIONS_ACCOUNT_USERNAME')) && Tools::getIsset(Tools::getValue('CARDPAYSOLUTIONS_ACCOUNT_PASSWORD')) && !empty(Tools::getValue('CARDPAYSOLUTIONS_ACCOUNT_USERNAME')) && !empty(Tools::getValue('CARDPAYSOLUTIONS_ACCOUNT_PASSWORD'))) {
 				$output .= $this->displayConfirmation($this->l('Configuration values successfully saved.'));
 				$this->_postProcess();
 			} else {
@@ -115,7 +115,7 @@ class Cardpaysolutions extends PaymentModule
 			}
 		}
 		
-		return $output . $this->renderForm();
+		return $output.$this->renderForm();
 	}
 	
 	/**
@@ -133,7 +133,7 @@ class Cardpaysolutions extends PaymentModule
 		
 		$helper->identifier    = $this->identifier;
 		$helper->submit_action = 'submitCardpaysolutionsModule';
-		$helper->currentIndex  = $this->context->link->getAdminLink('AdminModules', false) . '&configure=' . $this->name . '&tab_module=' . $this->tab . '&module_name=' . $this->name;
+		$helper->currentIndex  = $this->context->link->getAdminLink('AdminModules', false).'&configure='.$this->name.'&tab_module='.$this->tab.'&module_name='.$this->name;
 		$helper->token         = Tools::getAdminTokenLite('AdminModules');
 		
 		$helper->tpl_vars = array(
@@ -366,8 +366,8 @@ class Cardpaysolutions extends PaymentModule
 	 */
 	public function hookBackOfficeHeader()
 	{
-		$this->context->controller->addJS($this->_path . 'js/back.js');
-		$this->context->controller->addCSS($this->_path . 'css/back.css');
+		$this->context->controller->addJS($this->_path.'views/js/back.js');
+		$this->context->controller->addCSS($this->_path.'views/css/back.css');
 	}
 	
 	/**
@@ -375,8 +375,8 @@ class Cardpaysolutions extends PaymentModule
 	 */
 	public function hookHeader()
 	{
-		$this->context->controller->addJS($this->_path . '/js/front.js');
-		$this->context->controller->addCSS($this->_path . '/css/front.css');
+		$this->context->controller->addJS($this->_path.'/views/js/front.js');
+		$this->context->controller->addCSS($this->_path.'/views/css/front.css');
 	}
 	
 	public function hookDisplayAdminOrderTabOrder($params)
@@ -431,22 +431,22 @@ class Cardpaysolutions extends PaymentModule
 			
 			$query = "";
 			foreach ($params as $key => $value)
-				$query .= $key . '=' . urlencode($value) . '&';
+				$query .= $key.'='.urlencode($value).'&';
 			$query = trim($query, '&');
 			
 			$result = $this->_doPost($query);
 			
 			if ($result['response'] == 1) {
 				if ($transaction_type == 'capture') {
-					Db::getInstance()->Execute('UPDATE `' . _DB_PREFIX_ . 'cardpaysolutions` SET date_capture = NOW() WHERE `id_cart` = ' . (int) $order->id_cart);
+					Db::getInstance()->Execute('UPDATE `'._DB_PREFIX_.'cardpaysolutions` SET date_capture = NOW() WHERE `id_cart` = '.(int) $order->id_cart);
 					$conf_message = $this->l('Order successfully captured.');
 				}
 				if ($transaction_type == 'void') {
-					Db::getInstance()->Execute('UPDATE `' . _DB_PREFIX_ . 'cardpaysolutions` SET date_void = NOW() WHERE `id_cart` = ' . (int) $order->id_cart);
+					Db::getInstance()->Execute('UPDATE `'._DB_PREFIX_.'cardpaysolutions` SET date_void = NOW() WHERE `id_cart` = '.(int) $order->id_cart);
 					$conf_message = $this->l('Order successfully voided.');
 				}
 				if ($transaction_type == 'refund') {
-					Db::getInstance()->Execute('UPDATE `' . _DB_PREFIX_ . 'cardpaysolutions` SET date_refund = NOW() WHERE `id_cart` = ' . (int) $order->id_cart);
+					Db::getInstance()->Execute('UPDATE `'._DB_PREFIX_.'cardpaysolutions` SET date_refund = NOW() WHERE `id_cart` = '.(int) $order->id_cart);
 					$conf_message = $this->l('Order successfully refunded.');
 				}
 				$transaction = $this->_getTransaction((int) $order->id_cart);
@@ -456,7 +456,7 @@ class Cardpaysolutions extends PaymentModule
 		}
 		
 		$this->context->smarty->assign(array(
-			'cardpay_form' => './index.php?tab=AdminOrders&id_order=' . (int) $order->id . '&vieworder&token=' . Tools::getAdminTokenLite('AdminOrders'),
+			'cardpay_form' => './index.php?tab=AdminOrders&id_order='.(int) $order->id.'&vieworder&token='.Tools::getAdminTokenLite('AdminOrders'),
 			'cardpay_responsetext' => $transaction['responsetext'],
 			'cardpay_trans_type' => $transaction['trans_type'],
 			'cardpay_cc_last_four' => $transaction['cc_last_four'],
@@ -542,7 +542,7 @@ class Cardpaysolutions extends PaymentModule
 				'password' => Tools::safeOutput($password),
 				'type' => Tools::safeOutput(Configuration::get('CARDPAYSOLUTIONS_DEFAULT_TYPE')),
 				'ccnumber' => Tools::safeOutput(Tools::getValue('ccnumber')),
-				'ccexp' => Tools::safeOutput(Tools::getValue('exp_month') . Tools::getValue('exp_year')),
+				'ccexp' => Tools::safeOutput(Tools::getValue('exp_month').Tools::getValue('exp_year')),
 				'amount' => number_format((float) $cart->getOrderTotal(true, 3), 2, '.', ''),
 				'cvv' => Tools::safeOutput(Tools::getValue('cvv')),
 				'orderid' => (int) $cart->id,
@@ -554,7 +554,7 @@ class Cardpaysolutions extends PaymentModule
 			
 			$query = "";
 			foreach ($params as $key => $value)
-				$query .= $key . '=' . urlencode($value) . '&';
+				$query .= $key.'='.urlencode($value).'&';
 			$query  = trim($query, '&');
 			$result = $this->_doPost($query);
 			
@@ -563,11 +563,11 @@ class Cardpaysolutions extends PaymentModule
 					'id_cart' => (int) $cart->id,
 					'trans_type' => pSQL(Configuration::get('CARDPAYSOLUTIONS_DEFAULT_TYPE')),
 					'responsetext' => pSQL($result['responsetext']),
-					'cc_last_four' => pSQL(substr(Tools::getValue('ccnumber'), -4)),
+					'cc_last_four' => pSQL(Tools::substr(Tools::getValue('ccnumber'), -4)),
 					'card_type' => pSQL($this->_getCardType(Tools::getValue('ccnumber'))),
 					'amount' => pSQL(number_format((float) $cart->getOrderTotal(true, 3), 2, '.', '')),
-					'cardholder_name' => pSQL($customer->firstname . " " . $customer->lastname),
-					'ccexp' => pSQL(Tools::getValue('exp_month') . Tools::getValue('exp_year')),
+					'cardholder_name' => pSQL($customer->firstname." ".$customer->lastname),
+					'ccexp' => pSQL(Tools::getValue('exp_month').Tools::getValue('exp_year')),
 					'authcode' => pSQL($result['authcode']),
 					'transactionid' => pSQL($result['transactionid']),
 					'avsresponse' => pSQL($result['avsresponse']),
@@ -585,8 +585,8 @@ class Cardpaysolutions extends PaymentModule
 						$payment[0]->transaction_id  = $result['transactionid'];
 						$payment[0]->card_number     = substr(Tools::getValue('ccnumber'), -4);
 						$payment[0]->card_brand      = $this->_getCardType(Tools::getValue('ccnumber'));
-						$payment[0]->card_expiration = Tools::getValue('exp_month') . Tools::getValue('exp_year');
-						$payment[0]->card_holder     = $customer->firstname . " " . $customer->lastname;
+						$payment[0]->card_expiration = Tools::getValue('exp_month').Tools::getValue('exp_year');
+						$payment[0]->card_holder     = $customer->firstname." ".$customer->lastname;
 						$payment[0]->save();
 					}
 				}
@@ -601,16 +601,16 @@ class Cardpaysolutions extends PaymentModule
 			} else {
 				$error_msg = Tools::safeOutput($result['responsetext']);
 				
-				Logger::AddLog('[Cardpaysolutions] ' . Tools::safeOutput($error_msg), 2);
+				Logger::AddLog('[Cardpaysolutions] '.Tools::safeOutput($error_msg), 2);
 				$checkout_type = Configuration::get('PS_ORDER_PROCESS_TYPE') ? 'order-opc' : 'order';
-				$url           = (_PS_VERSION_ >= '1.5' ? 'index.php?controller=' . $checkout_type . '&' : $checkout_type . '.php?') . 'step=3&cgv=1&cardpayError=' . $error_msg;
+				$url           = (_PS_VERSION_ >= '1.5' ? 'index.php?controller='.$checkout_type.'&' : $checkout_type.'.php?').'step=3&cgv=1&cardpayError='.$error_msg;
 				
 				if (!isset($_SERVER['HTTP_REFERER']) || strstr($_SERVER['HTTP_REFERER'], 'order'))
 					Tools::redirect($url);
 				elseif (strstr($_SERVER['HTTP_REFERER'], '?'))
-					Tools::redirect(Tools::safeOutput($_SERVER['HTTP_REFERER']) . '&cardpayError=' . $error_msg, '');
+					Tools::redirect(Tools::safeOutput($_SERVER['HTTP_REFERER']).'&cardpayError='.$error_msg, '');
 				else
-					Tools::redirect(Tools::safeOutput($_SERVER['HTTP_REFERER']) . '?cardpayError=' . $error_msg, '');
+					Tools::redirect(Tools::safeOutput($_SERVER['HTTP_REFERER']).'?cardpayError='.$error_msg, '');
 			}
 		} else
 			die('Unfortunately your order could not be validated. Error: "Invalid Cart ID", please contact us.');
@@ -621,9 +621,9 @@ class Cardpaysolutions extends PaymentModule
 		return Db::getInstance()->insert('cardpaysolutions', $params);
 	}
 	
-	private function _getTransaction($id_cart, $id_shop = null)
+	private function _getTransaction($id_cart)
 	{
-		return Db::getInstance()->getRow('SELECT * FROM `' . _DB_PREFIX_ . 'cardpaysolutions` WHERE `id_cart` = ' . (int) $id_cart);
+		return Db::getInstance()->getRow('SELECT * FROM `'._DB_PREFIX_.'cardpaysolutions` WHERE `id_cart` = '.(int) $id_cart);
 	}
 	
 	private function _getCardType($number)
@@ -701,7 +701,8 @@ class Cardpaysolutions extends PaymentModule
 		unset($ch);
 		$data = explode("&", $data);
 		for ($i = 0; $i < count($data); $i++) {
-			$rdata               = explode("=", $data[$i]);
+			$rdata = explode("=", $data[$i]);
+			$response = array();
 			$response[$rdata[0]] = $rdata[1];
 		}
 		return $response;

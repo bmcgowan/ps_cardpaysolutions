@@ -1,5 +1,5 @@
 {*
-* 2007-2014 PrestaShop
+* 2007-2015 PrestaShop
 *
 * NOTICE OF LICENSE
 *
@@ -18,7 +18,7 @@
 * needs please refer to http://www.prestashop.com for more information.
 *
 *  @author    PrestaShop SA <contact@prestashop.com>
-*  @copyright 2007-2014 PrestaShop SA
+*  @copyright 2007-2015 PrestaShop SA
 *  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
@@ -27,7 +27,7 @@
 	<h3><i class="icon icon-credit-card"></i> {l s='Cardpay Solutions' mod='cardpaysolutions'}</h3>
 	<div class="row">
     <div class="col-lg-6">
-      <img src="{$module_dir}img/cardpay_logo.png" alt="Cardpay Solutions" />
+      <img src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/cardpay_logo.png" alt="Cardpay Solutions" />
     </div>
     <div class="col-lg-6">
       <div class="phoneHedr" style="color:#898B8E;text-align:center;">Questions? Call Toll-Free:</div>
@@ -93,7 +93,7 @@
   </div>
   <div class="row">
     <div class="col-lg-6">
-      <a href="http://www.cardpaymerchant.com/high_risk" target="_blank"><img src="{$module_dir}img/but_big_applynow.png" style="margin-top:20px;" /></a>
+      <a href="http://www.cardpaymerchant.com/high_risk" target="_blank"><img src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/but_big_applynow.png" style="margin-top:20px;" /></a>
     </div>
   </div>
 </div>

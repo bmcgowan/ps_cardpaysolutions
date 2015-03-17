@@ -1,4 +1,3 @@
-<?php
 /**
  * 2007-2014 PrestaShop
  *
@@ -24,10 +23,6 @@
  *  International Registered Trademark & Property of PrestaShop SA
  */
 
-require_once(dirname(__FILE__).'/../../config/config.inc.php');
-require_once(dirname(__FILE__).'/../../init.php');
-require_once(dirname(__FILE__).'/cardpaysolutions.php');
-
-$cardpaysolutions = new Cardpaysolutions();
-if ($cardpaysolutions->active)
-	$cardpaysolutions->validation();
+$(window).load(function () {
+  $('#tabOrder a[href="#cardpaysolutions"]').tab('show');
+});
