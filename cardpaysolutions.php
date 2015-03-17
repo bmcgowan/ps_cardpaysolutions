@@ -18,8 +18,8 @@
  * versions in the future. If you wish to customize PrestaShop for your
  * needs please refer to http://www.prestashop.com for more information.
  *
- *  @author    PrestaShop SA <contact@prestashop.com>
- *  @copyright 2007-2015 PrestaShop SA
+ *  @author    Cardpay Solutions, Inc. <sales@cardpaymerchant.com>
+ *  @copyright 2015 Cardpay Solutions, Inc.
  *  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  *  International Registered Trademark & Property of PrestaShop SA
  */
@@ -530,6 +530,7 @@ class Cardpaysolutions extends PaymentModule
 		$this->context->smarty->assign(array(
 			'current_year' => date('y'),
 			'cardpay_ps_version' => _PS_VERSION_,
+			'cardpay_live_mode' => Configuration::get('CARDPAYSOLUTIONS_LIVE_MODE'),
 			'cardpay_vi_enabled' => Configuration::get('CARDPAYSOLUTIONS_VI_ENABLED'),
 			'cardpay_mc_enabled' => Configuration::get('CARDPAYSOLUTIONS_MC_ENABLED'),
 			'cardpay_ds_enabled' => Configuration::get('CARDPAYSOLUTIONS_DS_ENABLED'),

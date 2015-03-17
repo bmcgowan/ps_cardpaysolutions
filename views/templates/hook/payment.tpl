@@ -17,8 +17,8 @@
 * versions in the future. If you wish to customize PrestaShop for your
 * needs please refer to http://www.prestashop.com for more information.
 *
-*  @author    PrestaShop SA <contact@prestashop.com>
-*  @copyright 2007-2015 PrestaShop SA
+*  @author    Cardpay Solutions, Inc. <sales@cardpaymerchant.com>
+*  @copyright 2015 Cardpay Solutions, Inc.
 *  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
@@ -28,6 +28,7 @@
     <div class="col-lg-12">
       <h3><img alt="" src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/secure-icon.png" class="secure-icon" />{l s='Secure Credit Card Payment' mod='cardpaysolutions'}</h3>
       <hr>
+      {if !$cardpay_live_mode}<p class="alert alert-danger">Warning: Payment Module is in test mode. Transaction will not be processed or funded.</p>{/if}
       {if isset($smarty.get.cardpayError)}<p class="alert alert-danger">{$smarty.get.cardpayError|escape:'htmlall':'UTF-8'}</p>{/if}
       <form action="{$module_dir|escape:'htmlall':'UTF-8'}validation.php" method="post" name="cardpay_form" id="cardpay_form" class="form-horizontal">
         <div class="form-group">
