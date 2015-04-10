@@ -22,7 +22,7 @@
 *  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
-<div id="cardpay_module_1_5" class="payment_module" style="border: 1px solid #595A5E; padding: 0.6em; margin-left: 0.7em; margin-bottom: 2.0em;">
+<div id="cardpay_module_1_5" {if $cardpay_ps_version < '1.5'} class="payment_module"{/if} style="border: 1px solid #595A5E; padding: 0.6em;{if $cardpay_ps_version < '1.5'} margin-left: 0.7em;{/if} margin-bottom: 2.0em;">
   <h3 class="cc-head-1-5"><img alt="" src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/secure-icon.png" class="secure-icon" />{l s='Secure Credit Card Payment' mod='cardpaysolutions'}</h3>
   {if !$cardpay_live_mode}<div class="warning"><p>Warning: Payment Module is in test mode. Transaction will not be processed or funded.</p></div>{/if}
   {if isset($smarty.get.cardpayError)}<div class="error"><p>{$smarty.get.cardpayError|escape:'htmlall':'UTF-8'}</p></div>{/if}
@@ -30,7 +30,7 @@
     <input type="hidden" name="billing-cc-exp" id="billing-cc-exp" value=""/>
     <p class="text">
       <label>&nbsp;</label>
-      <span class="logo-container">
+      <span class="logo-container"{if $cardpay_ps_version > '1.4.11'} style="margin-left:0"{/if}>
         {if $cardpay_vi_enabled}<img class="cc-logo" src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/cc-visa.png"/>{/if}
         {if $cardpay_mc_enabled}<img class="cc-logo" src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/cc-mastercard.png"/>{/if}
         {if $cardpay_ds_enabled}<img class="cc-logo" src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/cc-discover.png"/>{/if}
@@ -59,7 +59,7 @@
         <option value="10">10</option>
         <option value="11">11</option>
         <option value="12">12</option>
-      </select> / 
+      </select><span style="color:#000000; margin-right:5px;"> / </span>
       <select id="exp_year" name="exp_year">
         <option value="">--</option>
       {section name=date_y start=$current_year loop=$current_year+10}
