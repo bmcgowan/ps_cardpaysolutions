@@ -1,0 +1,241 @@
+.cardpay-module-wrapper {
+	clear: both;
+  margin: 0 auto;
+  max-width: 1024px;
+  min-width: 930px;
+  overflow: hidden;
+}
+.cardpay-module-header {
+	clear: both;
+  margin-bottom: 40px;
+  overflow: hidden;
+  padding-top: 15px;
+}
+.cardpay-module-header img.cardpay-logo {
+  float: left;
+  margin: 0 50px 0 0;
+}
+.cardpay-module-header span.cardpay-module-intro {
+  border-left: 1px solid #eaeaea;
+  color: #003f62;
+  display: block;
+  float: left;
+  font-size: 18px;
+  height: 61px;
+  line-height: 24px;
+  margin: 0 35px 0 0;
+  padding: 11px 0 0 20px;
+  width: 310px;
+}
+.cardpay-module-header a.cardpay-module-create-btn {
+  background: url("../../img/bg_btn-blue.png") no-repeat scroll left top rgba(0, 0, 0, 0);
+  color: #fff;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  height: 35px;
+  line-height: 33px;
+  margin: 16px 0 0;
+  padding: 0 0 0 20px;
+  text-shadow: 0 -1px 0 #03609e;
+}
+.cardpay-module-header a.cardpay-module-create-btn span {
+  background: url("../../img/bg_btn-blue.png") no-repeat scroll right bottom rgba(0, 0, 0, 0);
+  display: block;
+  height: 35px;
+  margin: 0 -20px 0 0;
+  padding: 0 20px 0 0;
+}
+.cardpay-module-wrap {
+	background-color: #fafafa;
+  border: 1px solid #eaeaea;
+  border-radius: 5px;
+  clear: both;
+  margin: 0 0 15px;
+  overflow: hidden;
+  padding: 15px;
+}
+.cardpay-module-col1 {
+	float: right;
+	margin: 0;
+  overflow: hidden;
+  width: 320px;
+}
+.cardpay-module-col2 {
+	margin: 0 335px 0 0;
+  min-width: 563px;
+  overflow: hidden;
+}
+.cardpay-module-col1inner {
+  float: left;
+  margin: 0;
+  overflow: hidden;
+  width: 48%;
+}
+.cardpay-module-col2inner {
+  clear: both;
+  margin: 0;
+  padding-top: 20px;
+}
+
+.cardpay-module-wrap .cardpay-module-col2inner h3 {
+  border-top: 1px solid #eaeaea;
+  padding-top: 20px;
+}
+.cardpay-module-wrap h3 {
+  color: #003f62;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 22px;
+  margin: 0 0 15px;
+  padding: 0;
+  text-shadow: 0 -1px 0 #daf2ff;
+}
+.cardpay-module-wrap ul {
+  list-style: outside none none;
+  margin: 0;
+  padding: 0;
+}
+.cardpay-module-wrap p, .cardpay-module-wrap ul li {
+  color: #535353;
+  font-size: 14px;
+  line-height: 22px;
+  margin: 0;
+  padding: 0;
+  text-shadow: 0 1px 0 #ffffff;
+}
+.cardpay-module-wrap a.cardpay-module-btn {
+  background: url("../../img/cardpay-btn-arrow.png") no-repeat scroll left center rgba(0, 0, 0, 0);
+  color: #008cdd;
+  display: inline-block;
+  margin: 7px 0;
+  padding-left: 8px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #ffffff;
+}
+.cardpay-module-wrap a.cardpay-module-btn:hover {
+  text-decoration: underline;
+}
+.cardpay-module-wrap ul {
+  list-style: outside none none;
+  margin: 0;
+  padding: 0;
+}
+.cardpay-module-wrap ul li {
+  background: url("../../img/check.png") no-repeat scroll left 5px rgba(0, 0, 0, 0);
+  margin: 0;
+  padding: 0 0 0 22px;
+}
+img.cardpay-cc {
+  margin: 0 40px 0 0;
+  vertical-align: middle;
+}
+.floatRight {
+	float: right;
+}
+.cardpay-module-col1-wrap {
+	background-color: #ffffff;
+  border: 1px solid #eaeaea;
+  border-radius: 3px;
+  overflow: hidden;
+  padding: 12px;
+}
+.cardpay-module-col1-wrap p {
+	font-size: 13px;
+	line-height: 19px;
+}
+img.cardpay-dashboard {
+  margin: 0;
+}
+a.cardpay-module-video-btn {
+  display: inline-block;
+  margin: 15px 0 0;
+  position: relative;
+}
+img.cardpay-video-btn {
+  left: 119px;
+  position: absolute;
+  top: 80px;
+}
+
+
+
+
+
+
+
+
+
+
+
+table.stripe-technical td {
+    padding: 4px 0;
+}
+fieldset.stripe-settings {
+    float: left;
+    margin-right: 20px;
+    width: 670px;
+}
+table.stripe-settings label {
+    float: none;
+    padding-right: 0;
+    text-align: right;
+    width: auto;
+}
+table.stripe-settings {
+    margin: 0;
+}
+table.stripe-settings td {
+    border-bottom: 1px solid #ccced7;
+    padding: 8px;
+}
+table.stripe-settings td.td-right {
+    color: #7f7f7f;
+    font-size: 0.9em;
+}
+table.stripe-settings td.td-noborder {
+    border-bottom: medium none;
+}
+table.stripe-settings td.save {
+    padding-top: 15px;
+    text-align: center;
+}
+table.stripe-settings table.innerTable td {
+    border: medium none;
+    padding: 6px;
+}
+table.stripe-settings table.innerTable td.vertBorder {
+    border-left: 1px solid #ccced7;
+}
+input.button:hover {
+    cursor: pointer;
+}
+fieldset.stripe-cc-numbers {
+    float: left;
+    width: 277px;
+}
+table.stripe-cc-numbers {
+    background-color: #ffffff;
+    border: 1px solid #ccced7;
+}
+table.stripe-cc-numbers th {
+    background-color: #f7fbff;
+    border-bottom: 1px solid #ccced7;
+    padding: 5px 25px 5px 8px;
+    text-align: left;
+}
+table.stripe-cc-numbers td {
+    border-bottom: 1px solid #ccced7;
+    padding: 5px 25px 5px 8px;
+}
+table.stripe-cc-numbers td.last {
+    border-bottom: medium none;
+}
+table.stripe-cc-numbers td.number code {
+    font-family: Courier;
+}
+.stripe-module-wrapper table {
+    color: #585a69;
+    font-size: 12px;
+    text-shadow: 0 1px 0 #ffffff;
+}

@@ -45,3 +45,70 @@
   margin-right:7px;
   margin-bottom:5px;
 }
+
+#cardpay_module_1_5 .secure-icon {
+	margin-right:7px;
+}
+
+#cardpay_module_1_5 .logo-container {
+	margin-left: 0.7em;
+	display: inline-block;
+}
+
+#cardpay_module_1_5 .cc-logo {
+	border: 1px solid #cccccc;
+	margin-right: 5px;
+	float: left;
+}
+
+#cardpay_module_1_5 p {
+	margin: 0;
+  padding: 0 0 10px;
+}
+
+#cardpay_module_1_5 p.required sup {
+	color: #990000;
+}
+
+#cardpay_module_1_5 p.text label,
+#cardpay_module_1_5 p.cc-actions label {
+	display: inline-block;
+  font-size: 12px;
+  padding: 6px 15px;
+  text-align: right;
+  width: 200px;
+  color: #222;
+}
+
+#cardpay_module_1_5 p.text input {
+	border: 1px solid #ccc;
+  color: #666;
+  font-size: 12px;
+  height: 22px;
+  line-height: 22px;
+  padding: 0 5px;
+}
+
+#cardpay_module_1_5 p.text select {
+	border: 1px solid #ccc;
+  color: #666;
+  font-size: 12px;
+  height: 22px;
+  margin-right: 10px;
+}
+
+#cardpay_module_1_5 #ccnumber {
+	width: 180px;
+}
+
+#cardpay_module_1_5 #exp_month {
+	width: 50px;
+}
+
+#cardpay_module_1_5 #exp_year {
+	width: 60px;
+}
+
+#cardpay_module_1_5 #cvv {
+	width: 40px;
+}

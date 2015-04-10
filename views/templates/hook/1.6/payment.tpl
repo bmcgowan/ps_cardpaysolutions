@@ -28,9 +28,10 @@
     <div class="col-lg-12">
       <h3><img alt="" src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/secure-icon.png" class="secure-icon" />{l s='Secure Credit Card Payment' mod='cardpaysolutions'}</h3>
       <hr>
-      {if !$cardpay_live_mode}<p class="alert alert-danger">Warning: Payment Module is in test mode. Transaction will not be processed or funded.</p>{/if}
+      {if !$cardpay_live_mode}<p class="alert alert-warning">Warning: Payment Module is in test mode. Transaction will not be processed or funded.</p>{/if}
       {if isset($smarty.get.cardpayError)}<p class="alert alert-danger">{$smarty.get.cardpayError|escape:'htmlall':'UTF-8'}</p>{/if}
-      <form action="{$module_dir|escape:'htmlall':'UTF-8'}validation.php" method="post" name="cardpay_form" id="cardpay_form" class="form-horizontal">
+      <form action="{$form_url|escape:'htmlall':'UTF-8'}" method="post" name="cardpay_form" id="cardpay_form" class="form-horizontal">
+        <input type="hidden" name="billing-cc-exp" id="billing-cc-exp" value=""/>
         <div class="form-group">
           <div class="col-lg-3 col-lg-offset-3">
             {if $cardpay_vi_enabled}<img src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/cc-visa.png"/>{/if}
@@ -44,7 +45,7 @@
         <div class="form-group">
           <label class="control-label col-lg-3">{l s='Card Number:' mod='cardpaysolutions'}</label>
           <div class="col-lg-3">
-            <input type="text" name="ccnumber" id="ccnumber" autocomplete="off" class="form-control" />
+            <input type="text" name="billing-cc-number" id="billing-cc-number" autocomplete="off" class="form-control" />
           </div>
         </div>
         <div class="form-group">

@@ -54,6 +54,9 @@ class Cardpaysolutions extends PaymentModule
 		/* Ensure that cURL is enabled */
 		if (!is_callable('curl_exec'))
 			$this->warning = $this->l('cURL extension must be enabled on your server to use this module.');
+
+		if (_PS_VERSION_ < '1.5')
+			require(_PS_MODULE_DIR_.$this->name.'/backward_compatibility/backward.php');
 	}
 
 	/**
@@ -74,15 +77,14 @@ class Cardpaysolutions extends PaymentModule
 		include(dirname(__FILE__).'/sql/install.php');
 
 		return parent::install() && $this->registerHook('header') && $this->registerHook('payment') && $this->registerHook('paymentTop')
-			&& $this->registerHook('BackOfficeHeader') && $this->registerHook('orderConfirmation') && $this->registerHook('displayAdminOrderTabOrder')
-			&& $this->registerHook('displayAdminOrderContentOrder');
+			&& $this->registerHook('adminOrder') && $this->registerHook('BackOfficeHeader') && $this->registerHook('orderConfirmation') 
+			&& $this->registerHook('displayAdminOrderTabOrder') && $this->registerHook('displayAdminOrderContentOrder');
 	}
 
 	public function uninstall()
 	{
 		Configuration::deleteByName('CARDPAYSOLUTIONS_LIVE_MODE');
-		Configuration::deleteByName('CARDPAYSOLUTIONS_ACCOUNT_USERNAME');
-		Configuration::deleteByName('CARDPAYSOLUTIONS_ACCOUNT_PASSWORD');
+		Configuration::deleteByName('CARDPAYSOLUTIONS_API_KEY');
 		Configuration::deleteByName('CARDPAYSOLUTIONS_DEFAULT_TYPE');
 		Configuration::deleteByName('CARDPAYSOLUTIONS_VI_ENABLED');
 		Configuration::deleteByName('CARDPAYSOLUTIONS_MC_ENABLED');
@@ -105,24 +107,45 @@ class Cardpaysolutions extends PaymentModule
 		 * If values have been submitted in the form, process.
 		 */
 		$this->context->smarty->assign('module_dir', $this->_path);
-
-		$output = $this->context->smarty->fetch($this->local_path.'views/templates/admin/configure.tpl');
+		
+		if (_PS_VERSION_ > '1.5.9.9')
+			$output = $this->context->smarty->fetch($this->local_path.'views/templates/admin/1.6/configure.tpl');
+		else
+		{
+			$this->context->smarty->assign('cardpay_form', './index.php?tab=AdminModules&configure=cardpaysolutions&token='
+				.Tools::getAdminTokenLite('AdminModules').'&tab_module='.$this->tab.'&module_name=cardpaysolutions');
+			$this->context->smarty->assign($this->getConfigFormValues());
+		}
+			
 
 		if (Tools::isSubmit('submitCardpaysolutionsModule'))
 		{
-			if (Tools::getIsset(Tools::getValue('CARDPAYSOLUTIONS_ACCOUNT_USERNAME'))
-				&& Tools::getIsset(Tools::getValue('CARDPAYSOLUTIONS_ACCOUNT_PASSWORD'))
-				&& !empty(Tools::getValue('CARDPAYSOLUTIONS_ACCOUNT_USERNAME'))
-				&& !empty(Tools::getValue('CARDPAYSOLUTIONS_ACCOUNT_PASSWORD')))
+			if (!empty(Tools::getValue('CARDPAYSOLUTIONS_API_KEY')))
 			{
-				$output .= $this->displayConfirmation($this->l('Configuration values successfully saved.'));
-				$this->postProcess();
+				if (_PS_VERSION_ > '1.5.9.9')
+				{
+					$this->postProcess();
+					$output .= $this->displayConfirmation($this->l('Configuration values successfully saved.'));
+				}
+				else
+				{
+					$this->postProcess();
+					$this->context->smarty->assign('cardpay_conf', $this->l('Configuration values successfully saved.'));
+					$this->context->smarty->assign($this->getConfigFormValues());
+				}
 			}
 			else
-				$output .= $this->displayError($this->l('Please complete all required fields.'));
+			{
+				if (_PS_VERSION_ > '1.5.9.9')
+					$output .= $this->displayError($this->l('Please complete all required fields.'));
+				else
+					$this->context->smarty->assign('cardpay_error', $this->l('Please complete all required fields.'));
+			}
 		}
-
-		return $output.$this->renderForm();
+		if (_PS_VERSION_ > '1.5.9.9')
+			return $output.$this->renderForm();
+		else
+			return $this->display(__FILE__, 'views/templates/admin/1.5/configure.tpl');
 	}
 
 	/**
@@ -169,9 +192,10 @@ class Cardpaysolutions extends PaymentModule
 				),
 				'input' => array(
 					array(
-						'type' => 'switch',
+						'type' => 'radio',
 						'label' => $this->l('Live mode'),
 						'name' => 'CARDPAYSOLUTIONS_LIVE_MODE',
+						'class' => 't',
 						'is_bool' => true,
 						'desc' => $this->l('Use this module in live mode'),
 						'values' => array(
@@ -190,18 +214,10 @@ class Cardpaysolutions extends PaymentModule
 					array(
 						'col' => 3,
 						'type' => 'text',
-						'prefix' => '<i class="icon icon-user"></i>',
-						'desc' => $this->l('Username from your Cardpay Solutions account'),
-						'name' => 'CARDPAYSOLUTIONS_ACCOUNT_USERNAME',
+						'desc' => $this->l('API Key from your Cardpay Solutions account'),
+						'name' => 'CARDPAYSOLUTIONS_API_KEY',
 						'required' => true,
-						'label' => $this->l('Username')
-					),
-					array(
-						'type' => 'password',
-						'desc' => $this->l('Password from your Cardpay Solutions account'),
-						'name' => 'CARDPAYSOLUTIONS_ACCOUNT_PASSWORD',
-						'required' => true,
-						'label' => $this->l('Password')
+						'label' => $this->l('API Key')
 					),
 					array(
 						'type' => 'select',
@@ -224,9 +240,10 @@ class Cardpaysolutions extends PaymentModule
 						)
 					),
 					array(
-						'type' => 'switch',
+						'type' => 'radio',
 						'label' => $this->l('Visa'),
 						'name' => 'CARDPAYSOLUTIONS_VI_ENABLED',
+						'class' => 't',
 						'is_bool' => true,
 						'values' => array(
 							array(
@@ -242,9 +259,10 @@ class Cardpaysolutions extends PaymentModule
 						)
 					),
 					array(
-						'type' => 'switch',
+						'type' => 'radio',
 						'label' => $this->l('MasterCard'),
 						'name' => 'CARDPAYSOLUTIONS_MC_ENABLED',
+						'class' => 't',
 						'is_bool' => true,
 						'values' => array(
 							array(
@@ -260,9 +278,10 @@ class Cardpaysolutions extends PaymentModule
 						)
 					),
 					array(
-						'type' => 'switch',
+						'type' => 'radio',
 						'label' => $this->l('Discover'),
 						'name' => 'CARDPAYSOLUTIONS_DS_ENABLED',
+						'class' => 't',
 						'is_bool' => true,
 						'values' => array(
 							array(
@@ -278,9 +297,10 @@ class Cardpaysolutions extends PaymentModule
 						)
 					),
 					array(
-						'type' => 'switch',
+						'type' => 'radio',
 						'label' => $this->l('American Express'),
 						'name' => 'CARDPAYSOLUTIONS_AX_ENABLED',
+						'class' => 't',
 						'is_bool' => true,
 						'values' => array(
 							array(
@@ -296,9 +316,10 @@ class Cardpaysolutions extends PaymentModule
 						)
 					),
 					array(
-						'type' => 'switch',
+						'type' => 'radio',
 						'label' => $this->l('JCB'),
 						'name' => 'CARDPAYSOLUTIONS_JC_ENABLED',
+						'class' => 't',
 						'is_bool' => true,
 						'values' => array(
 							array(
@@ -314,9 +335,10 @@ class Cardpaysolutions extends PaymentModule
 						)
 					),
 					array(
-						'type' => 'switch',
+						'type' => 'radio',
 						'label' => $this->l('Diners Club'),
 						'name' => 'CARDPAYSOLUTIONS_DN_ENABLED',
+						'class' => 't',
 						'is_bool' => true,
 						'values' => array(
 							array(
@@ -333,7 +355,8 @@ class Cardpaysolutions extends PaymentModule
 					)
 				),
 				'submit' => array(
-					'title' => $this->l('Save')
+					'title' => $this->l('Save'),
+					'class' => 'button'
 				)
 			)
 		);
@@ -346,8 +369,7 @@ class Cardpaysolutions extends PaymentModule
 	{
 		return array(
 			'CARDPAYSOLUTIONS_LIVE_MODE' => Configuration::get('CARDPAYSOLUTIONS_LIVE_MODE'),
-			'CARDPAYSOLUTIONS_ACCOUNT_USERNAME' => Configuration::get('CARDPAYSOLUTIONS_ACCOUNT_USERNAME'),
-			'CARDPAYSOLUTIONS_ACCOUNT_PASSWORD' => Configuration::get('CARDPAYSOLUTIONS_ACCOUNT_PASSWORD'),
+			'CARDPAYSOLUTIONS_API_KEY' => Configuration::get('CARDPAYSOLUTIONS_API_KEY'),
 			'CARDPAYSOLUTIONS_DEFAULT_TYPE' => Configuration::get('CARDPAYSOLUTIONS_DEFAULT_TYPE'),
 			'CARDPAYSOLUTIONS_VI_ENABLED' => Configuration::get('CARDPAYSOLUTIONS_VI_ENABLED'),
 			'CARDPAYSOLUTIONS_MC_ENABLED' => Configuration::get('CARDPAYSOLUTIONS_MC_ENABLED'),
@@ -383,8 +405,8 @@ class Cardpaysolutions extends PaymentModule
 	 */
 	public function hookHeader()
 	{
-		$this->context->controller->addJS($this->_path.'/views/js/front.js');
-		$this->context->controller->addCSS($this->_path.'/views/css/front.css');
+		$this->context->controller->addJS($this->_path.'views/js/front.js');
+		$this->context->controller->addCSS($this->_path.'views/css/front.css');
 	}
 
 	public function hookDisplayAdminOrderTabOrder($params)
@@ -397,14 +419,17 @@ class Cardpaysolutions extends PaymentModule
 		if (!Validate::isLoadedObject($order))
 			return false;
 
-		return $this->display(__FILE__, 'views/templates/hook/admin-order-tab.tpl');
+		return $this->display(__FILE__, 'views/templates/hook/1.6/admin-order-tab.tpl');
 	}
 
 	public function hookDisplayAdminOrderContentOrder($params)
 	{
 		if (!$this->active)
 			return false;
-		$order = new Order((int)$params['order']->id);
+		if (_PS_VERSION_ > '1.5.9.9')
+			$order = new Order((int)$params['order']->id);
+		else
+			$order = new Order((int)$params['id_order']);
 		if ($order->module != $this->name)
 			return false;
 		if (!Validate::isLoadedObject($order))
@@ -424,25 +449,20 @@ class Cardpaysolutions extends PaymentModule
 
 		if (isset($transaction_type))
 		{
-			$username = Configuration::get('CARDPAYSOLUTIONS_LIVE_MODE') ? Configuration::get('CARDPAYSOLUTIONS_ACCOUNT_USERNAME') : 'demo';
-			$password = Configuration::get('CARDPAYSOLUTIONS_LIVE_MODE') ? Configuration::get('CARDPAYSOLUTIONS_ACCOUNT_PASSWORD') : 'password';
+			$mode = Configuration::get('CARDPAYSOLUTIONS_LIVE_MODE');
+			$api_key = $mode ? Configuration::get('CARDPAYSOLUTIONS_API_KEY') : '2F822Rw39fx762MaV7Yy86jXGTC7sCDy';
 
-			$params = array(
-				'username' => Tools::safeOutput($username),
-				'password' => Tools::safeOutput($password),
-				'transactionid' => (int)$transaction['transactionid'],
-				'amount' => number_format((float)$order->getTotalPaid(true, 3), 2, '.', ''),
-				'type' => Tools::safeOutput($transaction_type)
-			);
+			$xml_request = new DOMDocument('1.0','UTF-8');
+			$xml_request->formatOutput = true;
+			$xml_trans = $xml_request->createElement($transaction_type);
+			$this->appendXmlNode($xml_request, $xml_trans, 'api-key', $api_key);
+			$this->appendXmlNode($xml_request, $xml_trans, 'transaction-id', (int)$transaction['transactionid']);
+			if ($transaction_type != 'void')
+				$this->appendXmlNode($xml_request, $xml_trans, 'amount', number_format((float)$transaction['amount'], 2, '.', ''));
+			$xml_request->appendChild($xml_trans);
+			$response = $this->doPost($xml_request);
 
-			$query = '';
-			foreach ($params as $key => $value)
-				$query .= $key.'='.urlencode($value).'&';
-			$query = trim($query, '&');
-
-			$result = $this->doPost($query);
-
-			if ($result['response'] == 1)
+			if ((string)$response->result == 1)
 			{
 				if ($transaction_type == 'capture')
 				{
@@ -462,7 +482,7 @@ class Cardpaysolutions extends PaymentModule
 				$transaction = $this->getTransaction((int)$order->id_cart);
 			}
 			else
-				$error_message = $result['responsetext'];
+				$error_message = (string)$response->{'result-text'};
 		}
 
 		$this->context->smarty->assign(array(
@@ -483,10 +503,16 @@ class Cardpaysolutions extends PaymentModule
 			'cardpay_date_refund' => $transaction['date_refund'],
 			'cardpay_date_capture' => $transaction['date_capture'],
 			'cardpay_message' => $conf_message,
-			'cardpay_error' => $error_message
+			'cardpay_error' => $error_message,
+			'ps_version' => _PS_VERSION_
 		));
 
-		return $this->display(__FILE__, 'views/templates/hook/admin-order-content.tpl');
+		return $this->display(__FILE__, (_PS_VERSION_ > '1.5.9.9' ? 'views/templates/hook/1.6/':'views/templates/hook/1.5/').'admin-order-content.tpl');
+	}
+
+	public function hookAdminOrder($params)
+	{
+		return $this->hookDisplayAdminOrderContentOrder($params);
 	}
 
 	public function hookOrderConfirmation($params)
@@ -507,6 +533,7 @@ class Cardpaysolutions extends PaymentModule
 			{
 				$this->context->smarty->assign('cardpay_order', array(
 					'id' => $params['objOrder']->id,
+					'reference' => "#".sprintf('%06d', $params['objOrder']->id),
 					'valid' => $params['objOrder']->valid
 				));
 			}
@@ -523,11 +550,36 @@ class Cardpaysolutions extends PaymentModule
 	{
 		if (!$this->active)
 			return;
-
-		if (!Configuration::get('CARDPAYSOLUTIONS_ACCOUNT_USERNAME') || !Configuration::get('CARDPAYSOLUTIONS_ACCOUNT_PASSWORD'))
+		if (!Configuration::get('CARDPAYSOLUTIONS_API_KEY'))
 			return false;
+		$cart = $this->context->cart;
+		$customer = new Customer((int)$cart->id_customer);
+		$billing_address = new Address((int)$cart->id_address_invoice);
+		$cart_summary = $cart->getSummaryDetails();
+		$mode = Configuration::get('CARDPAYSOLUTIONS_LIVE_MODE');
+		$api_key = $mode ? Configuration::get('CARDPAYSOLUTIONS_API_KEY') : '2F822Rw39fx762MaV7Yy86jXGTC7sCDy';
+
+		$xml_request = new DOMDocument('1.0','UTF-8');
+		$xml_request->formatOutput = true;
+		$xml_trans = $xml_request->createElement(Tools::safeOutput(Configuration::get('CARDPAYSOLUTIONS_DEFAULT_TYPE')));
+		$this->appendXmlNode($xml_request, $xml_trans, 'api-key', Tools::safeOutput($api_key));
+		$this->appendXmlNode($xml_request, $xml_trans, 'redirect-url', _PS_BASE_URL_.$this->_path.'validation.php');
+		$this->appendXmlNode($xml_request, $xml_trans, 'amount', number_format((float)$cart->getOrderTotal(true, 3), 2, '.', ''));
+		$this->appendXmlNode($xml_request, $xml_trans, 'order-id', (int)$cart->id);
+		$this->appendXmlNode($xml_request, $xml_trans, 'po-number', (int)$cart->id);
+		$this->appendXmlNode($xml_request, $xml_trans, 'tax-amount' , number_format((float)$cart_summary['total_tax'], 2, '.', ''));
+		$this->appendXmlNode($xml_request, $xml_trans, 'shipping-amount' , number_format((float)$cart->getOrderShippingCost(), 2, '.', ''));
+		$xml_billing_address = $xml_request->createElement('billing');
+		$this->appendXmlNode($xml_request, $xml_billing_address,'first-name', Tools::safeOutput($customer->firstname));
+    $this->appendXmlNode($xml_request, $xml_billing_address,'last-name', Tools::safeOutput($customer->lastname));
+    $this->appendXmlNode($xml_request, $xml_billing_address,'address1', Tools::safeOutput($billing_address->address1));
+		$this->appendXmlNode($xml_request, $xml_billing_address,'postal', Tools::safeOutput($billing_address->postcode));
+		$xml_trans->appendChild($xml_billing_address);
+		$xml_request->appendChild($xml_trans);
+		$response = $this->doPost($xml_request);
 
 		$this->context->smarty->assign(array(
+			'form_url' => $response->{'form-url'},
 			'current_year' => date('y'),
 			'cardpay_ps_version' => _PS_VERSION_,
 			'cardpay_live_mode' => Configuration::get('CARDPAYSOLUTIONS_LIVE_MODE'),
@@ -539,7 +591,7 @@ class Cardpaysolutions extends PaymentModule
 			'cardpay_dn_enabled' => Configuration::get('CARDPAYSOLUTIONS_DN_ENABLED')
 		));
 
-		return $this->display(__FILE__, 'views/templates/hook/payment.tpl');
+		return $this->display(__FILE__, (_PS_VERSION_ > '1.5.9.9' ? 'views/templates/hook/1.6/':'views/templates/hook/1.5/').'payment.tpl');
 	}
 
 	public function validation()
@@ -548,64 +600,50 @@ class Cardpaysolutions extends PaymentModule
 
 		if (Validate::isLoadedObject($cart) && !Order::getOrderByCartId((int)Tools::getValue('cart')))
 		{
-			$username       = Configuration::get('CARDPAYSOLUTIONS_LIVE_MODE') ? Configuration::get('CARDPAYSOLUTIONS_ACCOUNT_USERNAME') : 'demo';
-			$password       = Configuration::get('CARDPAYSOLUTIONS_LIVE_MODE') ? Configuration::get('CARDPAYSOLUTIONS_ACCOUNT_PASSWORD') : 'password';
-			$customer       = new Customer((int)$cart->id_customer);
-			$billing_address = new Address((int)$cart->id_address_invoice);
+			$customer = new Customer((int)$cart->id_customer);
+			$mode = Configuration::get('CARDPAYSOLUTIONS_LIVE_MODE');
+			$api_key = $mode ? Configuration::get('CARDPAYSOLUTIONS_API_KEY') : '2F822Rw39fx762MaV7Yy86jXGTC7sCDy';
+			$token_id = Tools::getValue('token-id');
+	    $xml_request = new DOMDocument('1.0','UTF-8');
+	    $xml_request->formatOutput = true;
+	    $xml_complete_transaction = $xml_request->createElement('complete-action');
+	    $this->appendXmlNode($xml_request, $xml_complete_transaction, 'api-key', $api_key);
+	    $this->appendXmlNode($xml_request, $xml_complete_transaction, 'token-id', $token_id);
+	    $xml_request->appendChild($xml_complete_transaction);
+			$response = $this->doPost($xml_request);
 
-			$params = array(
-				'username' => Tools::safeOutput($username),
-				'password' => Tools::safeOutput($password),
-				'type' => Tools::safeOutput(Configuration::get('CARDPAYSOLUTIONS_DEFAULT_TYPE')),
-				'ccnumber' => Tools::safeOutput(Tools::getValue('ccnumber')),
-				'ccexp' => Tools::safeOutput(Tools::getValue('exp_month').Tools::getValue('exp_year')),
-				'amount' => number_format((float)$cart->getOrderTotal(true, 3), 2, '.', ''),
-				'cvv' => Tools::safeOutput(Tools::getValue('cvv')),
-				'orderid' => (int)$cart->id,
-				'firstname' => Tools::safeOutput($customer->firstname),
-				'lastname' => Tools::safeOutput($customer->lastname),
-				'address1' => Tools::safeOutput($billing_address->address1),
-				'zip' => Tools::safeOutput($billing_address->postcode)
-			);
-
-			$query = '';
-			foreach ($params as $key => $value)
-				$query .= $key.'='.urlencode($value).'&';
-			$query  = trim($query, '&');
-			$result = $this->doPost($query);
-
-			if ($result['response'] == 1)
+			if ((string)$response->result == 1)
 			{
 				$this->insertTransaction(array(
 					'id_cart' => (int)$cart->id,
 					'trans_type' => pSQL(Configuration::get('CARDPAYSOLUTIONS_DEFAULT_TYPE')),
-					'responsetext' => pSQL($result['responsetext']),
-					'cc_last_four' => pSQL(Tools::substr(Tools::getValue('ccnumber'), -4)),
-					'card_type' => pSQL($this->getCardType(Tools::getValue('ccnumber'))),
+					'responsetext' => pSQL((string)$response->{'result-text'}),
+					'cc_last_four' => pSQL(Tools::substr($response->billing->{'cc-number'}, -4)),
+					'card_type' => pSQL($this->getCardType((string)$response->billing->{'cc-number'})),
 					'amount' => pSQL(number_format((float)$cart->getOrderTotal(true, 3), 2, '.', '')),
 					'cardholder_name' => pSQL($customer->firstname.' '.$customer->lastname),
-					'ccexp' => pSQL(Tools::getValue('exp_month').Tools::getValue('exp_year')),
-					'authcode' => pSQL($result['authcode']),
-					'transactionid' => pSQL($result['transactionid']),
-					'avsresponse' => pSQL($result['avsresponse']),
-					'cvvresponse' => pSQL($result['cvvresponse']),
+					'ccexp' => pSQL($response->billing->{'cc-exp'}),
+					'authcode' => pSQL((string)$response->{'authorization-code'}),
+					'transactionid' => pSQL((string)$response->{'transaction-id'}),
+					'avsresponse' => pSQL((string)$response->{'avs-result'}),
+					'cvvresponse' => pSQL((string)$response->{'cvv-result'}),
 					'date_add' => date('Y-m-d H:i:s')
 				));
 				$this->validateOrder((int)$cart->id, (int)Configuration::get('PS_OS_PAYMENT'), (float)$cart->getOrderTotal(),
-					'Credit Card', null, array(), null, false, $cart->secure_key);
-				Configuration::updateValue('CARDPAYSOLUTIONS_CONFIGURATION_OK', true);
+					$this->displayName, null, array(), null, false, $cart->secure_key);
+				Configuration::updateValue('CARDPAYSOLUTIONS_CONF_OK', true);
 
 				/** @since 1.5.0 Attach the Transaction ID to this Order */
-				if (version_compare(_PS_VERSION_, '1.5', '>='))
+				if (_PS_VERSION_ >= '1.5')
 				{
 					$new_order = new Order((int)$this->currentOrder);
 					if (Validate::isLoadedObject($new_order))
 					{
 						$payment                     = $new_order->getOrderPaymentCollection();
-						$payment[0]->transaction_id  = $result['transactionid'];
-						$payment[0]->card_number     = Tools::substr(Tools::getValue('ccnumber'), -4);
-						$payment[0]->card_brand      = $this->getCardType(Tools::getValue('ccnumber'));
-						$payment[0]->card_expiration = Tools::getValue('exp_month').Tools::getValue('exp_year');
+						$payment[0]->transaction_id  = (string)$response->{'transaction-id'};
+						$payment[0]->card_number     = Tools::substr($response->billing->{'cc-number'}, -4);
+						$payment[0]->card_brand      = $this->getCardType((string)$response->billing->{'cc-number'});
+						$payment[0]->card_expiration = (string)$response->billing->{'cc-exp'};
 						$payment[0]->card_holder     = $customer->firstname.' '.$customer->lastname;
 						$payment[0]->save();
 					}
@@ -617,11 +655,19 @@ class Cardpaysolutions extends PaymentModule
 					'id_module' => (int)$this->id,
 					'id_order' => (int)$this->currentOrder
 				);
-				Tools::redirect($this->context->link->getPageLink('order-confirmation', null, null, $link_params));
+				if (_PS_VERSION_ >= 1.5)
+					Tools::redirect($this->context->link->getPageLink('order-confirmation', null, null, $link_params));
+				else
+				{
+					$redirect = __PS_BASE_URI__.'order-confirmation.php?id_cart='.(int)$this->context->cart->id.'&id_module='.(int)$this->id.'&id_order='
+						.(int)$this->currentOrder.'&key='.$this->context->customer->secure_key;
+					header('Location: '.$redirect);
+					exit;
+				}
 			}
 			else
 			{
-				$error_msg = Tools::safeOutput($result['responsetext']);
+				$error_msg = Tools::safeOutput($response->{'result-text'});
 
 				Logger::AddLog('[Cardpaysolutions] '.Tools::safeOutput($error_msg), 2);
 				$checkout_type = Configuration::get('PS_ORDER_PROCESS_TYPE') ? 'order-opc' : 'order';
@@ -641,7 +687,10 @@ class Cardpaysolutions extends PaymentModule
 
 	private function insertTransaction($params)
 	{
-		return Db::getInstance()->insert('cardpaysolutions', $params);
+		if (_PS_VERSION_ < '1.5.0.5')
+			return Db::getInstance()->autoExecute(_DB_PREFIX_.'cardpaysolutions', $params, 'INSERT');
+		else
+			return Db::getInstance()->insert('cardpaysolutions', $params);
 	}
 
 	private function getTransaction($id_cart)
@@ -702,32 +751,37 @@ class Cardpaysolutions extends PaymentModule
 		);
 	}
 
-	private function doPost($query)
+	private function appendXmlNode($domDocument, $parentNode, $name, $value) {
+		$childNode = $domDocument->createElement($name);
+		$childNodeValue = $domDocument->createTextNode($value);
+		$childNode->appendChild($childNodeValue);
+		$parentNode->appendChild($childNode);
+	}
+
+	private function doPost($xml_request)
 	{
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, 'https://cardpaysolutions.transactiongateway.com/api/transact.php');
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15);
+		curl_setopt($ch, CURLOPT_URL, 'https://cardpaysolutions.transactiongateway.com/api/v2/three-step');
+
+		$headers = array();
+		$headers[] = "Content-type: text/xml";
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		$xml_string = $xml_request->saveXML();
+		curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_PORT, 443);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 15);
-		curl_setopt($ch, CURLOPT_VERBOSE, 0);
 		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $query);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-		curl_setopt($ch, CURLOPT_NOPROGRESS, 1);
-		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $xml_string);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+		//curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 
 		if (!($data = curl_exec($ch)))
 			return ERROR;
 		curl_close($ch);
 		unset($ch);
-		$data = explode('&', $data);
-		$count = count($data);
-		for ($i = 0; $i < $count; $i++)
-		{
-			$rdata = explode('=', $data[$i]);
-			$response = array();
-			$response[$rdata[0]] = $rdata[1];
-		}
+		$response = @new SimpleXMLElement((string)$data);
 		return $response;
 	}
 }

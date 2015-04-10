@@ -1,4 +1,5 @@
-{*
+<?php
+/**
 * 2007-2015 PrestaShop
 *
 * NOTICE OF LICENSE
@@ -21,14 +22,14 @@
 *  @copyright 2015 Cardpay Solutions, Inc.
 *  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
-*}
+*/
 
-{if $cardpay_order.valid == 1}
-<p class="alert alert-success success">
-  {l s='Thank You! Your order is complete. Your reference number for this order is ' mod='cardpaysolutions'}<strong>{$cardpay_order.reference|escape:html:'UTF-8'}</strong>
-</p>
-{else}
-<p class="alert alert-danger error">
-  {l s='Unfortunately, an error occurred during the transaction. Please double-check your credit card details and try again.' mod='cardpaysolutions'}
-</p>
-{/if}
+header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
+
+header('Cache-Control: no-store, no-cache, must-revalidate');
+header('Cache-Control: post-check=0, pre-check=0', false);
+header('Pragma: no-cache');
+
+header('Location: ../');
+exit;

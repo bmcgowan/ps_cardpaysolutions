@@ -71,7 +71,7 @@
 }
 
 #cardpay_promo .bodyCheck li {
-  background: url("../views/img/check.png") no-repeat scroll 0 2px rgba(0, 0, 0, 0);
+  background: url("../img/check.png") no-repeat scroll 0 2px rgba(0, 0, 0, 0);
   font-size: 12px;
   margin-bottom: 8px;
   padding-left: 30px;
