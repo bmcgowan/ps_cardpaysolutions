@@ -22,7 +22,7 @@
 *  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
-<link href="{$module_dir}views/css/1.5/back.css" rel="stylesheet" type="text/css">
+<link href="{$module_dir|escape:'htmlall':'UTF-8'}views/css/1.5/back.css" rel="stylesheet" type="text/css">
 <div class="cardpay-module-wrapper">
   <div class="cardpay-module-header">
     <a rel="external" href="http://www.cardpaymerchant.com" target="_blank">
@@ -93,7 +93,7 @@
 
 <form action="{$cardpay_form|escape:'htmlall':'UTF-8'}" method="post">
   <fieldset>
-    <legend><img src="{$module_dir}img/icon-config.gif" alt="" />{l s='Configuration' mod='cardpaysolutions'}</legend>
+    <legend><img src="{$module_dir|escape:'htmlall':'UTF-8'}img/icon-config.gif" alt="" />{l s='Configuration' mod='cardpaysolutions'}</legend>
     <div style="clear: both;">
       <label>Live mode</label>
       <div class="margin-form" style="padding-top:5px;">

@@ -77,7 +77,7 @@ class Cardpaysolutions extends PaymentModule
 		include(dirname(__FILE__).'/sql/install.php');
 
 		return parent::install() && $this->registerHook('header') && $this->registerHook('payment') && $this->registerHook('paymentTop')
-			&& $this->registerHook('adminOrder') && $this->registerHook('BackOfficeHeader') && $this->registerHook('orderConfirmation') 
+			&& $this->registerHook('adminOrder') && $this->registerHook('BackOfficeHeader') && $this->registerHook('orderConfirmation')
 			&& $this->registerHook('displayAdminOrderTabOrder') && $this->registerHook('displayAdminOrderContentOrder');
 	}
 
@@ -107,7 +107,7 @@ class Cardpaysolutions extends PaymentModule
 		 * If values have been submitted in the form, process.
 		 */
 		$this->context->smarty->assign('module_dir', $this->_path);
-		
+
 		if (_PS_VERSION_ > '1.5.9.9')
 			$output = $this->context->smarty->fetch($this->local_path.'views/templates/admin/1.6/configure.tpl');
 		else
@@ -116,7 +116,6 @@ class Cardpaysolutions extends PaymentModule
 				.Tools::getAdminTokenLite('AdminModules').'&tab_module='.$this->tab.'&module_name=cardpaysolutions');
 			$this->context->smarty->assign($this->getConfigFormValues());
 		}
-			
 
 		if (Tools::isSubmit('submitCardpaysolutionsModule'))
 		{
@@ -452,7 +451,7 @@ class Cardpaysolutions extends PaymentModule
 			$mode = Configuration::get('CARDPAYSOLUTIONS_LIVE_MODE');
 			$api_key = $mode ? Configuration::get('CARDPAYSOLUTIONS_API_KEY') : '2F822Rw39fx762MaV7Yy86jXGTC7sCDy';
 
-			$xml_request = new DOMDocument('1.0','UTF-8');
+			$xml_request = new DOMDocument('1.0', 'UTF-8');
 			$xml_request->formatOutput = true;
 			$xml_trans = $xml_request->createElement($transaction_type);
 			$this->appendXmlNode($xml_request, $xml_trans, 'api-key', $api_key);
@@ -533,7 +532,7 @@ class Cardpaysolutions extends PaymentModule
 			{
 				$this->context->smarty->assign('cardpay_order', array(
 					'id' => $params['objOrder']->id,
-					'reference' => "#".sprintf('%06d', $params['objOrder']->id),
+					'reference' => '#'.sprintf('%06d', $params['objOrder']->id),
 					'valid' => $params['objOrder']->valid
 				));
 			}
@@ -559,7 +558,7 @@ class Cardpaysolutions extends PaymentModule
 		$mode = Configuration::get('CARDPAYSOLUTIONS_LIVE_MODE');
 		$api_key = $mode ? Configuration::get('CARDPAYSOLUTIONS_API_KEY') : '2F822Rw39fx762MaV7Yy86jXGTC7sCDy';
 
-		$xml_request = new DOMDocument('1.0','UTF-8');
+		$xml_request = new DOMDocument('1.0', 'UTF-8');
 		$xml_request->formatOutput = true;
 		$xml_trans = $xml_request->createElement(Tools::safeOutput(Configuration::get('CARDPAYSOLUTIONS_DEFAULT_TYPE')));
 		$this->appendXmlNode($xml_request, $xml_trans, 'api-key', Tools::safeOutput($api_key));
@@ -567,13 +566,13 @@ class Cardpaysolutions extends PaymentModule
 		$this->appendXmlNode($xml_request, $xml_trans, 'amount', number_format((float)$cart->getOrderTotal(true, 3), 2, '.', ''));
 		$this->appendXmlNode($xml_request, $xml_trans, 'order-id', (int)$cart->id);
 		$this->appendXmlNode($xml_request, $xml_trans, 'po-number', (int)$cart->id);
-		$this->appendXmlNode($xml_request, $xml_trans, 'tax-amount' , number_format((float)$cart_summary['total_tax'], 2, '.', ''));
-		$this->appendXmlNode($xml_request, $xml_trans, 'shipping-amount' , number_format((float)$cart->getOrderShippingCost(), 2, '.', ''));
+		$this->appendXmlNode($xml_request, $xml_trans, 'tax-amount', number_format((float)$cart_summary['total_tax'], 2, '.', ''));
+		$this->appendXmlNode($xml_request, $xml_trans, 'shipping-amount', number_format((float)$cart->getOrderShippingCost(), 2, '.', ''));
 		$xml_billing_address = $xml_request->createElement('billing');
-		$this->appendXmlNode($xml_request, $xml_billing_address,'first-name', Tools::safeOutput($customer->firstname));
-    $this->appendXmlNode($xml_request, $xml_billing_address,'last-name', Tools::safeOutput($customer->lastname));
-    $this->appendXmlNode($xml_request, $xml_billing_address,'address1', Tools::safeOutput($billing_address->address1));
-		$this->appendXmlNode($xml_request, $xml_billing_address,'postal', Tools::safeOutput($billing_address->postcode));
+		$this->appendXmlNode($xml_request, $xml_billing_address, 'first-name', Tools::safeOutput($customer->firstname));
+		$this->appendXmlNode($xml_request, $xml_billing_address, 'last-name', Tools::safeOutput($customer->lastname));
+		$this->appendXmlNode($xml_request, $xml_billing_address, 'address1', Tools::safeOutput($billing_address->address1));
+		$this->appendXmlNode($xml_request, $xml_billing_address, 'postal', Tools::safeOutput($billing_address->postcode));
 		$xml_trans->appendChild($xml_billing_address);
 		$xml_request->appendChild($xml_trans);
 		$response = $this->doPost($xml_request);
@@ -604,12 +603,12 @@ class Cardpaysolutions extends PaymentModule
 			$mode = Configuration::get('CARDPAYSOLUTIONS_LIVE_MODE');
 			$api_key = $mode ? Configuration::get('CARDPAYSOLUTIONS_API_KEY') : '2F822Rw39fx762MaV7Yy86jXGTC7sCDy';
 			$token_id = Tools::getValue('token-id');
-	    $xml_request = new DOMDocument('1.0','UTF-8');
-	    $xml_request->formatOutput = true;
-	    $xml_complete_transaction = $xml_request->createElement('complete-action');
-	    $this->appendXmlNode($xml_request, $xml_complete_transaction, 'api-key', $api_key);
-	    $this->appendXmlNode($xml_request, $xml_complete_transaction, 'token-id', $token_id);
-	    $xml_request->appendChild($xml_complete_transaction);
+			$xml_request = new DOMDocument('1.0', 'UTF-8');
+			$xml_request->formatOutput = true;
+			$xml_complete_transaction = $xml_request->createElement('complete-action');
+			$this->appendXmlNode($xml_request, $xml_complete_transaction, 'api-key', $api_key);
+			$this->appendXmlNode($xml_request, $xml_complete_transaction, 'token-id', $token_id);
+			$xml_request->appendChild($xml_complete_transaction);
 			$response = $this->doPost($xml_request);
 
 			if ((string)$response->result == 1)
@@ -751,7 +750,8 @@ class Cardpaysolutions extends PaymentModule
 		);
 	}
 
-	private function appendXmlNode($domDocument, $parentNode, $name, $value) {
+	private function appendXmlNode($domDocument, $parentNode, $name, $value)
+	{
 		$childNode = $domDocument->createElement($name);
 		$childNodeValue = $domDocument->createTextNode($value);
 		$childNode->appendChild($childNodeValue);
@@ -764,7 +764,7 @@ class Cardpaysolutions extends PaymentModule
 		curl_setopt($ch, CURLOPT_URL, 'https://cardpaysolutions.transactiongateway.com/api/v2/three-step');
 
 		$headers = array();
-		$headers[] = "Content-type: text/xml";
+		$headers[] = 'Content-type: text/xml';
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 		$xml_string = $xml_request->saveXML();
 		curl_setopt($ch, CURLOPT_FAILONERROR, 1);
