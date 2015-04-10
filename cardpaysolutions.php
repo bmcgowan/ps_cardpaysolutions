@@ -660,7 +660,7 @@ class Cardpaysolutions extends PaymentModule
 				{
 					$redirect = __PS_BASE_URI__.'order-confirmation.php?id_cart='.(int)$this->context->cart->id.'&id_module='.(int)$this->id.'&id_order='
 						.(int)$this->currentOrder.'&key='.$this->context->customer->secure_key;
-					header('Location: '.$redirect);
+					Tools::redirect($redirect);
 					exit;
 				}
 			}
@@ -750,12 +750,12 @@ class Cardpaysolutions extends PaymentModule
 		);
 	}
 
-	private function appendXmlNode($domDocument, $parentNode, $name, $value)
+	private function appendXmlNode($dom_document, $parent_node, $name, $value)
 	{
-		$childNode = $domDocument->createElement($name);
-		$childNodeValue = $domDocument->createTextNode($value);
-		$childNode->appendChild($childNodeValue);
-		$parentNode->appendChild($childNode);
+		$child_node = $dom_document->createElement($name);
+		$child_node_value = $dom_document->createTextNode($value);
+		$child_node->appendChild($child_node_value);
+		$parent_node->appendChild($child_node);
 	}
 
 	private function doPost($xml_request)
