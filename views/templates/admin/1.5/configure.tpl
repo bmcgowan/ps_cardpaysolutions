@@ -25,11 +25,11 @@
 <link href="{$module_dir|escape:'htmlall':'UTF-8'}views/css/1.5/back.css" rel="stylesheet" type="text/css">
 <div class="cardpay-module-wrapper">
   <div class="cardpay-module-header">
-    <a rel="external" href="http://www.cardpaymerchant.com" target="_blank">
+    <a rel="external" href="http://www.cardpaymerchant.com?pid=8bfc5cfdfc677036" target="_blank">
       <img class="cardpay-logo" alt="Cardpay Solutions" width="254" height="59" src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/cardpay_logo.png">
     </a>
     <span class="cardpay-module-intro">Secure payment software for both traditional and high-risk merchants.</span>
-    <a class="cardpay-module-create-btn" rel="external" href="http://www.cardpaymerchant.com" target="_blank">
+    <a class="cardpay-module-create-btn" rel="external" href="http://www.cardpaymerchant.com?pid=8bfc5cfdfc677036" target="_blank">
       <span>Apply Online Today!</span>
     </a>
   </div>
@@ -82,143 +82,142 @@
         <h3>Accept all major credit cards!</h3>
         <p>
           <img class="cardpay-cc" alt="Cardpay Solutions" src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/cardpay-cc.png">
-          <a class="cardpay-module-btn" href="http://www.cardpaymerchant.com" target="_blank">
+          <a class="cardpay-module-btn" href="http://www.cardpaymerchant.com?pid=8bfc5cfdfc677036" target="_blank">
             <strong>Apply Online Today!</strong>
           </a>
         </p>
       </div>
     </div>
   </div>
+  <form action="{$cardpay_form|escape:'htmlall':'UTF-8'}" method="post">
+    <fieldset>
+      <legend><img src="{$module_dir|escape:'htmlall':'UTF-8'}img/icon-config.gif" alt="" />{l s='Configuration' mod='cardpaysolutions'}</legend>
+      <div style="clear: both;">
+        <label>Live mode</label>
+        <div class="margin-form" style="padding-top:5px;">
+          <label class="t" for="CARDPAYSOLUTIONS_LIVE_MODE_on">
+            <img title="Yes" alt="Yes" src="../img/admin/enabled.gif" />
+          </label>
+          <input id="CARDPAYSOLUTIONS_LIVE_MODE_on" type="radio" value="1" name="CARDPAYSOLUTIONS_LIVE_MODE" {if $CARDPAYSOLUTIONS_LIVE_MODE}checked="checked"{/if}>
+          <label class="t" for="CARDPAYSOLUTIONS_LIVE_MODE_on"> Yes</label>
+          <label class="t" for="CARDPAYSOLUTIONS_LIVE_MODE_off">
+            <img style="margin-left: 10px;" title="No" alt="No" src="../img/admin/disabled.gif">
+          </label>
+          <input id="CARDPAYSOLUTIONS_LIVE_MODE_off" type="radio" value="0" name="CARDPAYSOLUTIONS_LIVE_MODE" {if !$CARDPAYSOLUTIONS_LIVE_MODE}checked="checked"{/if}>
+          <label class="t" for="CARDPAYSOLUTIONS_LIVE_MODE_off"> No</label>
+          <p style="clear:both">Use this module in live mode</p>
+        </div>
+      </div>
+      <div style="clear: both;">
+        <label>API Key</label>
+        <div class="margin-form" style="padding-top:5px;">
+          <input type="text" value="{$CARDPAYSOLUTIONS_API_KEY|escape:'htmlall':'UTF-8'}" name="CARDPAYSOLUTIONS_API_KEY" size="40">
+          <p style="clear:both">API Key from your Cardpay Solutions account</p>
+        </div>
+      </div>
+      <div style="clear: both;">
+        <label>Default transaction type</label>
+        <div class="margin-form" style="padding-top:5px;">
+          <select id="CARDPAYSOLUTIONS_DEFAULT_TYPE" name="CARDPAYSOLUTIONS_DEFAULT_TYPE">
+            <option value="sale">Authorize & Capture (sale)</option>
+            <option value="auth">Authorize Only (auth)</option>
+          </select>
+        </div>
+      </div>
+      <div style="clear: both;">
+        <label>Visa</label>
+        <div class="margin-form" style="padding-top:5px;">
+          <label class="t" for="CARDPAYSOLUTIONS_VI_ENABLED_on">
+            <img title="Yes" alt="Yes" src="../img/admin/enabled.gif" />
+          </label>
+          <input id="CARDPAYSOLUTIONS_VI_ENABLED_on" type="radio" value="1" name="CARDPAYSOLUTIONS_VI_ENABLED" {if $CARDPAYSOLUTIONS_VI_ENABLED}checked="checked"{/if}>
+          <label class="t" for="CARDPAYSOLUTIONS_VI_ENABLED_on"> Yes</label>
+          <label class="t" for="CARDPAYSOLUTIONS_VI_ENABLED_off">
+            <img style="margin-left: 10px;" title="No" alt="No" src="../img/admin/disabled.gif">
+          </label>
+          <input id="CARDPAYSOLUTIONS_VI_ENABLED_off" type="radio" value="0" name="CARDPAYSOLUTIONS_VI_ENABLED" {if !$CARDPAYSOLUTIONS_VI_ENABLED}checked="checked"{/if}>
+          <label class="t" for="CARDPAYSOLUTIONS_VI_ENABLED_off"> No</label>
+        </div>
+      </div>
+      <div style="clear: both;">
+        <label>MasterCard</label>
+        <div class="margin-form" style="padding-top:5px;">
+          <label class="t" for="CARDPAYSOLUTIONS_MC_ENABLED_on">
+            <img title="Yes" alt="Yes" src="../img/admin/enabled.gif" />
+          </label>
+          <input id="CARDPAYSOLUTIONS_MC_ENABLED_on" type="radio" value="1" name="CARDPAYSOLUTIONS_MC_ENABLED" {if $CARDPAYSOLUTIONS_MC_ENABLED}checked="checked"{/if}>
+          <label class="t" for="CARDPAYSOLUTIONS_MC_ENABLED_on"> Yes</label>
+          <label class="t" for="CARDPAYSOLUTIONS_MC_ENABLED_off">
+            <img style="margin-left: 10px;" title="No" alt="No" src="../img/admin/disabled.gif">
+          </label>
+          <input id="CARDPAYSOLUTIONS_MC_ENABLED_off" type="radio" value="0" name="CARDPAYSOLUTIONS_MC_ENABLED" {if !$CARDPAYSOLUTIONS_MC_ENABLED}checked="checked"{/if}>
+          <label class="t" for="CARDPAYSOLUTIONS_MC_ENABLED_off"> No</label>
+        </div>
+      </div>
+      <div style="clear: both;">
+        <label>Discover</label>
+        <div class="margin-form" style="padding-top:5px;">
+          <label class="t" for="CARDPAYSOLUTIONS_DS_ENABLED_on">
+            <img title="Yes" alt="Yes" src="../img/admin/enabled.gif" />
+          </label>
+          <input id="CARDPAYSOLUTIONS_DS_ENABLED_on" type="radio" value="1" name="CARDPAYSOLUTIONS_DS_ENABLED" {if $CARDPAYSOLUTIONS_DS_ENABLED}checked="checked"{/if}>
+          <label class="t" for="CARDPAYSOLUTIONS_DS_ENABLED_on"> Yes</label>
+          <label class="t" for="CARDPAYSOLUTIONS_DS_ENABLED_off">
+            <img style="margin-left: 10px;" title="No" alt="No" src="../img/admin/disabled.gif">
+          </label>
+          <input id="CARDPAYSOLUTIONS_DS_ENABLED_off" type="radio" value="0" name="CARDPAYSOLUTIONS_DS_ENABLED" {if !$CARDPAYSOLUTIONS_DS_ENABLED}checked="checked"{/if}>
+          <label class="t" for="CARDPAYSOLUTIONS_DS_ENABLED_off"> No</label>
+        </div>
+      </div>
+      <div style="clear: both;">
+        <label>American Express</label>
+        <div class="margin-form" style="padding-top:5px;">
+          <label class="t" for="CARDPAYSOLUTIONS_AX_ENABLED_on">
+            <img title="Yes" alt="Yes" src="../img/admin/enabled.gif" />
+          </label>
+          <input id="CARDPAYSOLUTIONS_AX_ENABLED_on" type="radio" value="1" name="CARDPAYSOLUTIONS_AX_ENABLED" {if $CARDPAYSOLUTIONS_AX_ENABLED}checked="checked"{/if}>
+          <label class="t" for="CARDPAYSOLUTIONS_AX_ENABLED_on"> Yes</label>
+          <label class="t" for="CARDPAYSOLUTIONS_AX_ENABLED_off">
+            <img style="margin-left: 10px;" title="No" alt="No" src="../img/admin/disabled.gif">
+          </label>
+          <input id="CARDPAYSOLUTIONS_AX_ENABLED_off" type="radio" value="0" name="CARDPAYSOLUTIONS_AX_ENABLED" {if !$CARDPAYSOLUTIONS_AX_ENABLED}checked="checked"{/if}>
+          <label class="t" for="CARDPAYSOLUTIONS_AX_ENABLED_off"> No</label>
+        </div>
+      </div>
+      <div style="clear: both;">
+        <label>JCB</label>
+        <div class="margin-form" style="padding-top:5px;">
+          <label class="t" for="CARDPAYSOLUTIONS_JC_ENABLED_on">
+            <img title="Yes" alt="Yes" src="../img/admin/enabled.gif" />
+          </label>
+          <input id="CARDPAYSOLUTIONS_JC_ENABLED_on" type="radio" value="1" name="CARDPAYSOLUTIONS_JC_ENABLED" {if $CARDPAYSOLUTIONS_JC_ENABLED}checked="checked"{/if}>
+          <label class="t" for="CARDPAYSOLUTIONS_JC_ENABLED_on"> Yes</label>
+          <label class="t" for="CARDPAYSOLUTIONS_JC_ENABLED_off">
+            <img style="margin-left: 10px;" title="No" alt="No" src="../img/admin/disabled.gif">
+          </label>
+          <input id="CARDPAYSOLUTIONS_JC_ENABLED_off" type="radio" value="0" name="CARDPAYSOLUTIONS_JC_ENABLED" {if !$CARDPAYSOLUTIONS_JC_ENABLED}checked="checked"{/if}>
+          <label class="t" for="CARDPAYSOLUTIONS_JC_ENABLED_off"> No</label>
+        </div>
+      </div>
+      <div style="clear: both;">
+        <label>Diners Club</label>
+        <div class="margin-form" style="padding-top:5px;">
+          <label class="t" for="CARDPAYSOLUTIONS_DN_ENABLED_on">
+            <img title="Yes" alt="Yes" src="../img/admin/enabled.gif" />
+          </label>
+          <input id="CARDPAYSOLUTIONS_DN_ENABLED_on" type="radio" value="1" name="CARDPAYSOLUTIONS_DN_ENABLED" {if $CARDPAYSOLUTIONS_DN_ENABLED}checked="checked"{/if}>
+          <label class="t" for="CARDPAYSOLUTIONS_DN_ENABLED_on"> Yes</label>
+          <label class="t" for="CARDPAYSOLUTIONS_DN_ENABLED_off">
+            <img style="margin-left: 10px;" title="No" alt="No" src="../img/admin/disabled.gif">
+          </label>
+          <input id="CARDPAYSOLUTIONS_DN_ENABLED_off" type="radio" value="0" name="CARDPAYSOLUTIONS_DN_ENABLED" {if !$CARDPAYSOLUTIONS_DN_ENABLED}checked="checked"{/if}>
+          <label class="t" for="CARDPAYSOLUTIONS_DN_ENABLED_off"> No</label>
+        </div>
+      </div>
+      <div style="clear:both; margin-top: 10px;">
+        <label>&nbsp;</label>
+        <input class="button" type="submit" name="submitCardpaysolutionsModule" value=" Save ">
+      </div>
+    </fieldset>
+  </form>
 </div>
-
-<form action="{$cardpay_form|escape:'htmlall':'UTF-8'}" method="post">
-  <fieldset>
-    <legend><img src="{$module_dir|escape:'htmlall':'UTF-8'}img/icon-config.gif" alt="" />{l s='Configuration' mod='cardpaysolutions'}</legend>
-    <div style="clear: both;">
-      <label>Live mode</label>
-      <div class="margin-form" style="padding-top:5px;">
-        <label class="t" for="CARDPAYSOLUTIONS_LIVE_MODE_on">
-          <img title="Yes" alt="Yes" src="../img/admin/enabled.gif" />
-        </label>
-        <input id="CARDPAYSOLUTIONS_LIVE_MODE_on" type="radio" value="1" name="CARDPAYSOLUTIONS_LIVE_MODE" {if $CARDPAYSOLUTIONS_LIVE_MODE}checked="checked"{/if}>
-        <label class="t" for="CARDPAYSOLUTIONS_LIVE_MODE_on"> Yes</label>
-        <label class="t" for="CARDPAYSOLUTIONS_LIVE_MODE_off">
-          <img style="margin-left: 10px;" title="No" alt="No" src="../img/admin/disabled.gif">
-        </label>
-        <input id="CARDPAYSOLUTIONS_LIVE_MODE_off" type="radio" value="0" name="CARDPAYSOLUTIONS_LIVE_MODE" {if !$CARDPAYSOLUTIONS_LIVE_MODE}checked="checked"{/if}>
-        <label class="t" for="CARDPAYSOLUTIONS_LIVE_MODE_off"> No</label>
-        <p style="clear:both">Use this module in live mode</p>
-      </div>
-    </div>
-    <div style="clear: both;">
-      <label>API Key</label>
-      <div class="margin-form" style="padding-top:5px;">
-        <input type="text" value="{$CARDPAYSOLUTIONS_API_KEY|escape:'htmlall':'UTF-8'}" name="CARDPAYSOLUTIONS_API_KEY" size="40">
-        <p style="clear:both">API Key from your Cardpay Solutions account</p>
-      </div>
-    </div>
-    <div style="clear: both;">
-      <label>Default transaction type</label>
-      <div class="margin-form" style="padding-top:5px;">
-        <select id="CARDPAYSOLUTIONS_DEFAULT_TYPE" name="CARDPAYSOLUTIONS_DEFAULT_TYPE">
-          <option value="sale">Authorize & Capture (sale)</option>
-          <option value="auth">Authorize Only (auth)</option>
-        </select>
-      </div>
-    </div>
-    <div style="clear: both;">
-      <label>Visa</label>
-      <div class="margin-form" style="padding-top:5px;">
-        <label class="t" for="CARDPAYSOLUTIONS_VI_ENABLED_on">
-          <img title="Yes" alt="Yes" src="../img/admin/enabled.gif" />
-        </label>
-        <input id="CARDPAYSOLUTIONS_VI_ENABLED_on" type="radio" value="1" name="CARDPAYSOLUTIONS_VI_ENABLED" {if $CARDPAYSOLUTIONS_VI_ENABLED}checked="checked"{/if}>
-        <label class="t" for="CARDPAYSOLUTIONS_VI_ENABLED_on"> Yes</label>
-        <label class="t" for="CARDPAYSOLUTIONS_VI_ENABLED_off">
-          <img style="margin-left: 10px;" title="No" alt="No" src="../img/admin/disabled.gif">
-        </label>
-        <input id="CARDPAYSOLUTIONS_VI_ENABLED_off" type="radio" value="0" name="CARDPAYSOLUTIONS_VI_ENABLED" {if !$CARDPAYSOLUTIONS_VI_ENABLED}checked="checked"{/if}>
-        <label class="t" for="CARDPAYSOLUTIONS_VI_ENABLED_off"> No</label>
-      </div>
-    </div>
-    <div style="clear: both;">
-      <label>MasterCard</label>
-      <div class="margin-form" style="padding-top:5px;">
-        <label class="t" for="CARDPAYSOLUTIONS_MC_ENABLED_on">
-          <img title="Yes" alt="Yes" src="../img/admin/enabled.gif" />
-        </label>
-        <input id="CARDPAYSOLUTIONS_MC_ENABLED_on" type="radio" value="1" name="CARDPAYSOLUTIONS_MC_ENABLED" {if $CARDPAYSOLUTIONS_MC_ENABLED}checked="checked"{/if}>
-        <label class="t" for="CARDPAYSOLUTIONS_MC_ENABLED_on"> Yes</label>
-        <label class="t" for="CARDPAYSOLUTIONS_MC_ENABLED_off">
-          <img style="margin-left: 10px;" title="No" alt="No" src="../img/admin/disabled.gif">
-        </label>
-        <input id="CARDPAYSOLUTIONS_MC_ENABLED_off" type="radio" value="0" name="CARDPAYSOLUTIONS_MC_ENABLED" {if !$CARDPAYSOLUTIONS_MC_ENABLED}checked="checked"{/if}>
-        <label class="t" for="CARDPAYSOLUTIONS_MC_ENABLED_off"> No</label>
-      </div>
-    </div>
-    <div style="clear: both;">
-      <label>Discover</label>
-      <div class="margin-form" style="padding-top:5px;">
-        <label class="t" for="CARDPAYSOLUTIONS_DS_ENABLED_on">
-          <img title="Yes" alt="Yes" src="../img/admin/enabled.gif" />
-        </label>
-        <input id="CARDPAYSOLUTIONS_DS_ENABLED_on" type="radio" value="1" name="CARDPAYSOLUTIONS_DS_ENABLED" {if $CARDPAYSOLUTIONS_DS_ENABLED}checked="checked"{/if}>
-        <label class="t" for="CARDPAYSOLUTIONS_DS_ENABLED_on"> Yes</label>
-        <label class="t" for="CARDPAYSOLUTIONS_DS_ENABLED_off">
-          <img style="margin-left: 10px;" title="No" alt="No" src="../img/admin/disabled.gif">
-        </label>
-        <input id="CARDPAYSOLUTIONS_DS_ENABLED_off" type="radio" value="0" name="CARDPAYSOLUTIONS_DS_ENABLED" {if !$CARDPAYSOLUTIONS_DS_ENABLED}checked="checked"{/if}>
-        <label class="t" for="CARDPAYSOLUTIONS_DS_ENABLED_off"> No</label>
-      </div>
-    </div>
-    <div style="clear: both;">
-      <label>American Express</label>
-      <div class="margin-form" style="padding-top:5px;">
-        <label class="t" for="CARDPAYSOLUTIONS_AX_ENABLED_on">
-          <img title="Yes" alt="Yes" src="../img/admin/enabled.gif" />
-        </label>
-        <input id="CARDPAYSOLUTIONS_AX_ENABLED_on" type="radio" value="1" name="CARDPAYSOLUTIONS_AX_ENABLED" {if $CARDPAYSOLUTIONS_AX_ENABLED}checked="checked"{/if}>
-        <label class="t" for="CARDPAYSOLUTIONS_AX_ENABLED_on"> Yes</label>
-        <label class="t" for="CARDPAYSOLUTIONS_AX_ENABLED_off">
-          <img style="margin-left: 10px;" title="No" alt="No" src="../img/admin/disabled.gif">
-        </label>
-        <input id="CARDPAYSOLUTIONS_AX_ENABLED_off" type="radio" value="0" name="CARDPAYSOLUTIONS_AX_ENABLED" {if !$CARDPAYSOLUTIONS_AX_ENABLED}checked="checked"{/if}>
-        <label class="t" for="CARDPAYSOLUTIONS_AX_ENABLED_off"> No</label>
-      </div>
-    </div>
-    <div style="clear: both;">
-      <label>JCB</label>
-      <div class="margin-form" style="padding-top:5px;">
-        <label class="t" for="CARDPAYSOLUTIONS_JC_ENABLED_on">
-          <img title="Yes" alt="Yes" src="../img/admin/enabled.gif" />
-        </label>
-        <input id="CARDPAYSOLUTIONS_JC_ENABLED_on" type="radio" value="1" name="CARDPAYSOLUTIONS_JC_ENABLED" {if $CARDPAYSOLUTIONS_JC_ENABLED}checked="checked"{/if}>
-        <label class="t" for="CARDPAYSOLUTIONS_JC_ENABLED_on"> Yes</label>
-        <label class="t" for="CARDPAYSOLUTIONS_JC_ENABLED_off">
-          <img style="margin-left: 10px;" title="No" alt="No" src="../img/admin/disabled.gif">
-        </label>
-        <input id="CARDPAYSOLUTIONS_JC_ENABLED_off" type="radio" value="0" name="CARDPAYSOLUTIONS_JC_ENABLED" {if !$CARDPAYSOLUTIONS_JC_ENABLED}checked="checked"{/if}>
-        <label class="t" for="CARDPAYSOLUTIONS_JC_ENABLED_off"> No</label>
-      </div>
-    </div>
-    <div style="clear: both;">
-      <label>Diners Club</label>
-      <div class="margin-form" style="padding-top:5px;">
-        <label class="t" for="CARDPAYSOLUTIONS_DN_ENABLED_on">
-          <img title="Yes" alt="Yes" src="../img/admin/enabled.gif" />
-        </label>
-        <input id="CARDPAYSOLUTIONS_DN_ENABLED_on" type="radio" value="1" name="CARDPAYSOLUTIONS_DN_ENABLED" {if $CARDPAYSOLUTIONS_DN_ENABLED}checked="checked"{/if}>
-        <label class="t" for="CARDPAYSOLUTIONS_DN_ENABLED_on"> Yes</label>
-        <label class="t" for="CARDPAYSOLUTIONS_DN_ENABLED_off">
-          <img style="margin-left: 10px;" title="No" alt="No" src="../img/admin/disabled.gif">
-        </label>
-        <input id="CARDPAYSOLUTIONS_DN_ENABLED_off" type="radio" value="0" name="CARDPAYSOLUTIONS_DN_ENABLED" {if !$CARDPAYSOLUTIONS_DN_ENABLED}checked="checked"{/if}>
-        <label class="t" for="CARDPAYSOLUTIONS_DN_ENABLED_off"> No</label>
-      </div>
-    </div>
-    <div style="clear:both; margin-top: 10px;">
-      <label>&nbsp;</label>
-      <input class="button" type="submit" name="submitCardpaysolutionsModule" value=" Save ">
-    </div>
-  </fieldset>
-</form>

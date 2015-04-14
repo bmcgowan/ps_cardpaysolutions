@@ -28,51 +28,111 @@
 
 .cc-action {
   margin-bottom: 20px !important;
+  
 }
 
-#cardpay_promo h4 {
-  font-family: "Open Sans",Helvetica,Arial,sans-serif;
-  font-size: 30px;
-  font-weight: 300;
-  color: #898b8e;
+#cardpay_module .cardpay-header {
+	margin-bottom: 40px;
 }
-
-#cardpay_promo h5 {
-  font-family: "Open Sans",Helvetica,Arial,sans-serif;
-  font-size: 16px !important;
-  font-weight: 500;
-  color: #003F62;
-  margin-top: 5px;
-  margin-bottom: 15px
+#cardpay_module .cardpay-logo {
+  margin-right: 70px;
+  float: left;
 }
-
-#cardpay_promo p {
-  font-family: "Open Sans",Helvetica,Arial,sans-serif;
+#cardpay_module .cardpay-intro {
+	border-left: 1px solid #eaeaea;
+	color: #003f62;
+	display: block;
+  float: left;
+	font-size: 18px;
+	line-height: 24px;
+  margin: 0 35px 0 0;
+  padding: 11px 0 0 20px;
+  width: 340px;
+}
+#cardpay_module .cardpay-create-btn {
+	background: url("../img/bg_btn-blue.png") no-repeat scroll left top rgba(0, 0, 0, 0);
+	color: #fff;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  height: 35px;
+  line-height: 33px;
+  margin: 16px 0 0;
+  padding: 0 0 0 20px;
+  text-shadow: 0 -1px 0 #03609e;
+}
+#cardpay_module a.cardpay-create-btn span {
+	background: url("../img/bg_btn-blue.png") no-repeat scroll right bottom rgba(0, 0, 0, 0);
+  display: block;
+  height: 35px;
+  margin: 0 -20px 0 0;
+  padding: 0 20px 0 0;
+}
+#cardpay_module .cardpay-container {
+	background-color: #fafafa;
+  border: 1px solid #eaeaea;
+  border-radius: 5px;
+  clear: both;
+  margin: 0 0 15px;
+  overflow: hidden;
+  padding: 15px;
+}
+#cardpay_module .cardpay-container h3 {
+	font-family: "Open Sans",​Helvetica,​Arial,​sans-serif;
+	color: #003f62;
+  font-size: 18px !important;
+  font-weight: normal;
+  line-height: 22px !important;
+  margin: 0 0 15px !important;
+  padding: 0 !important;
+  text-shadow: 0 -1px 0 #daf2ff;
+  text-transform: none !important;
+  border: none !important;
+}
+#cardpay_module ul {
+	list-style: outside none none;
+  margin: 0;
+  padding: 0;
+}
+#cardpay_module ul li {
+	background: url("../img/check.png") no-repeat scroll left 5px rgba(0, 0, 0, 0);
+  margin: 0;
+  padding: 0 0 0 22px;
+  color: #535353;
   font-size: 14px;
-  line-height: 21px;
-  color: #6c6c6c;
+  line-height: 22px;
+  text-shadow: 0 1px 0 #ffffff;
 }
-
-#cardpay_promo .phoneHedr {
-  color: #cce8f3;
-  font-size: 18px;
+#cardpay_module .cardpay-col1 {
+	 border-bottom: 1px solid #eaeaea;
+	 padding-bottom: 20px;
+	 margin-bottom: 20px;
 }
-
-#cardpay_promo .phoneNumber {
-  color: #ffffff;
-  font-size: 28px;
-  margin-bottom: 10px;
-  margin-top: 12px;
+#cardpay_module .cardpay-col2 {
+	background-color: #ffffff;
+  border: 1px solid #eaeaea;
+  border-radius: 3px;
+  overflow: hidden;
+  padding: 12px;
 }
-
-#cardpay_promo .bodyCheck {
-  list-style-type: none;
-  margin-left: 0;
+#cardpay_module .cardpay-col2 p {
+	font-size: 13px;
+	line-height: 19px;
 }
-
-#cardpay_promo .bodyCheck li {
-  background: url("../img/check.png") no-repeat scroll 0 2px rgba(0, 0, 0, 0);
-  font-size: 12px;
-  margin-bottom: 8px;
-  padding-left: 30px;
+#cardpay_module a.cardpay-module-btn {
+  background: url("../img/cardpay-btn-arrow.png") no-repeat scroll left center rgba(0, 0, 0, 0);
+  color: #008cdd;
+  display: inline-block;
+  margin: 7px 0;
+  padding-left: 8px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #ffffff;
+  font-size: 14px;
+}
+#cardpay_module a.cardpay-module-btn:hover {
+  text-decoration: underline;
+}
+#cardpay_module img.cardpay-cc {
+  margin: 0 40px 0 0;
+  vertical-align: middle;
 }

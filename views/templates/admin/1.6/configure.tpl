@@ -22,88 +22,82 @@
 *  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
-
-<div class="panel" id="cardpay_promo">
-	<h3><i class="icon icon-credit-card"></i> {l s='Cardpay Solutions' mod='cardpaysolutions'}</h3>
-	<div class="row">
-    <div class="col-lg-6">
-      <img src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/cardpay_logo.png" alt="Cardpay Solutions" />
-    </div>
-    <div class="col-lg-6">
-      <div class="phoneHedr" style="color:#898B8E;text-align:center;">Questions? Call Toll-Free:</div>
-      <div class="phoneNumber" style="color:#575757;text-align:center;margin-top:5px;">(866) 502-8910</div>
-    </div>
-    <div class="col-lg-12">
-      <hr>
+<div id="cardpay_module" class="panel">
+  <h3><i class="icon icon-credit-card"></i> {l s='Cardpay Solutions' mod='cardpaysolutions'}</h3>
+  <div class="row cardpay-header">
+    <div class="col-lg-9">
+      <a rel="external" href="http://www.cardpaymerchant.com?pid=8bfc5cfdfc677036" class="cardpay-logo"target="_blank">
+        <img alt="Cardpay Solutions" width="254" height="59" src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/cardpay_logo.png">
+      </a>
+      <span class="cardpay-intro">Secure payment software for both traditional and high-risk merchants.</span>
+      <a class="cardpay-create-btn" rel="external" href="http://www.cardpaymerchant.com?pid=8bfc5cfdfc677036" target="_blank">
+        <span>Apply Online Today!</span>
+      </a>
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-12">
-      <h4>High Risk Merchant Solutions</h4>
-      <hr>
-    </div>
-    <div class="col-lg-6">
-      <p style='font-size: 16px; line-height: 24px;'>
-        We work closely with every client to make sure that we find the right solution for their business. If you are in an industry that is classified as high-risk, it
-        is important to get set up with the right type of account to ensure that you will have uninterrupted service.
-      </p>
-      <p>We specialize in helping merchants that fall into the following high-risk industries or have other circumstances that cause them to be considered high risk, such as...</p>
-      <div class='col-lg-6'>
-        <h5>
-          Why Us?
-        </h5>
-        <ul class='bodyCheck' style='padding-left:0;'>
-          <li>$150 Rebate Offer (<a class="modal-link" href="#offer_details">see details</a>)</li>
-          <li>Free Set-Up</li>
-          <li>Competitive Rates</li>
-          <li>Dedicated Account Manager</li>
-          <li>Fast Approvals</li>
-          <li>Bad Credit OK</li>
-          <li>Multiple Bank Relationships</li>
-          <li>Chargeback Mitigation</li>
-          <li>Fraud Detection Tools</li>
-          <li>Free Virtual Terminal</li>
-          <li>Automated Recurring Billing</li>
-          <li>Credit Card Tokenization</li>
-          <li>Developer APIs</li>
-          <li>Simplified PCI Compliance</li>
-        </ul>
+    <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 cardpay-container">
+      <div class="row">
+        <div class="col-lg-8 cardpay-col1">
+          <div class="row">
+            <div class="col-lg-6">
+              <h3>Why Us?</h3>
+              <ul>
+                <li>Rates starting at 1.89% + $0.23</li>
+                <li>Free account set-up</li>
+                <li>Next day funding</li>
+                <li>Dedicated account manager</li>
+                <li>Multiple bank relationships</li>
+                <li>Chargeback Mitigation</li>
+                <li>Fraud detection tools</li>
+                <li>Free virtual terminal</li>
+                <li>Automated recurring billing</li>
+                <li>Simplified PCI compliance</li>
+              </ul>
+            </div>
+            <div class="col-lg-6">
+              <h3>Supported Industries</h3>
+              <ul>
+                <li>All Traditional e-Commerce</li>
+                <li>e-Cigarettes & Vaporizers</li>
+                <li>Adult Products</li>
+                <li>Supplements & Nutraceuticals</li>
+                <li>Diet Programs</li>
+                <li>PC Technical Support</li>
+                <li>Tobacco Products</li>
+                <li>Multi-Level Marketing</li>
+                <li>Travel Agencies</li>
+                <li>Furniture Stores</li>
+                <li>Firearms & Accessories</li>
+                <li>and many more...</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 cardpay-col2">
+          <div class="row">
+            <div class="col-lg-12">
+              <h3>Security Built In!</h3>
+              <p>
+                Our proprietary Three Step Redirect technology sends the sensitive card information directly from your customer's browser to our gateway 
+                so that it never touches your server. This makes the process of meeting the card industry's PCI Compliance requirements as simple as
+                filling out a short survey. There is no need for security scans of your server or expensive and complicated server software upgrades.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class='col-lg-6'>
-        <h5>
-          Industries Served:
-        </h5>
-        <ul class='bodyCheck' style='padding-left:0;'>
-          <li>Adult Websites/Products</li>
-          <li>e-Cigarettes & Vaporizers</li>
-          <li>Supplements & Nutraceuticals</li>
-          <li>Diet Programs</li>
-          <li>PC Technical Support</li>
-          <li>Debt Collections</li>
-          <li>Tobacco Products</li>
-          <li>Multi-Level Marketing</li>
-          <li>Bail Bonds</li>
-          <li>Travel Agencies</li>
-          <li>Furniture Stores</li>
-          <li>Firearm Sales</li>
-          <li>and many more...</li>
-        </ul>
+      <div class="row">
+        <div class="col-lg-9">
+          <h3>Accept all major credit cards!</h3>
+          <p>
+            <img class="cardpay-cc" alt="Cardpay Solutions" src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/cardpay-cc.png">
+            <a class="cardpay-module-btn" href="http://www.cardpaymerchant.com?pid=8bfc5cfdfc677036" target="_blank">
+              <strong>Apply Online Today!</strong>
+            </a>
+          </p>
+        </div>
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-lg-6">
-      <a href="http://www.cardpaymerchant.com/high_risk" target="_blank"><img src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/but_big_applynow.png" style="margin-top:20px;" /></a>
-    </div>
-  </div>
-</div>
-
-<div class="panel">
-	<h3><i class="icon icon-tags"></i> {l s='Documentation' mod='cardpaysolutions'}</h3>
-	<p>
-		&raquo; {l s='You can get a PDF documentation to configure this module' mod='cardpaysolutions'} :
-		<ul>
-			<li><a href="#" target="_blank">{l s='English' mod='cardpaysolutions'}</a></li>
-		</ul>
-	</p>
 </div>

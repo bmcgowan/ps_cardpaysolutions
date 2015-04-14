@@ -55,6 +55,7 @@
 	display: inline-block;
 }
 
+#cardpay_module .cc-logo,
 #cardpay_module_1_5 .cc-logo {
 	border: 1px solid #cccccc;
 	margin-right: 5px;

@@ -34,12 +34,12 @@
         <input type="hidden" name="billing-cc-exp" id="billing-cc-exp" value=""/>
         <div class="form-group">
           <div class="col-lg-3 col-lg-offset-3">
-            {if $cardpay_vi_enabled}<img src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/cc-visa.png"/>{/if}
-            {if $cardpay_mc_enabled}<img src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/cc-mastercard.png"/>{/if}
-            {if $cardpay_ds_enabled}<img src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/cc-discover.png"/>{/if}
-            {if $cardpay_ax_enabled}<img src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/cc-amex.png"/>{/if}
-            {if $cardpay_jc_enabled}<img src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/cc-jcb.png"/>{/if}
-            {if $cardpay_dn_enabled}<img src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/cc-diners.png"/>{/if}
+            {if $cardpay_vi_enabled}<img class="cc-logo" src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/cc-visa.png"/>{/if}
+            {if $cardpay_mc_enabled}<img class="cc-logo" src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/cc-mastercard.png"/>{/if}
+            {if $cardpay_ds_enabled}<img class="cc-logo" src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/cc-discover.png"/>{/if}
+            {if $cardpay_ax_enabled}<img class="cc-logo" src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/cc-amex.png"/>{/if}
+            {if $cardpay_jc_enabled}<img class="cc-logo" src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/cc-jcb.png"/>{/if}
+            {if $cardpay_dn_enabled}<img class="cc-logo" src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/cc-diners.png"/>{/if}
           </div>
         </div>
         <div class="form-group">
@@ -69,7 +69,7 @@
           </div>
           <div class="col-lg-1 exp-separator"> / </div>
           <div class="col-lg-1" style="padding-left:0;">
-            <select name="exp_year" class="form-control">
+            <select id="exp_year" name="exp_year" class="form-control">
               <option value="">--</option>
             {section name=date_y start=$current_year loop=$current_year+10}
               <option value="{$smarty.section.date_y.index|escape}">20{$smarty.section.date_y.index|escape}</option>
