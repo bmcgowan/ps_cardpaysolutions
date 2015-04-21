@@ -39,7 +39,7 @@
         <h3>Security Built In!</h3>
         <p>
           Our proprietary Three Step Redirect technology sends the sensitive card information directly from your customer's browser to our gateway 
-          so that it never touches your server. This makes the process of meeting the card industry's PCI Compliance requirements as simple as
+          so that it never touches your server. This makes the process of meeting the card industry's PCI Compliance requirements is as simple as
           filling out a short survey. There is no need for security scans of your server or expensive and complicated server software upgrades.
         </p>
         
@@ -91,7 +91,7 @@
   </div>
   <form action="{$cardpay_form|escape:'htmlall':'UTF-8'}" method="post">
     <fieldset>
-      <legend><img src="{$module_dir|escape:'htmlall':'UTF-8'}img/icon-config.gif" alt="" />{l s='Configuration' mod='cardpaysolutions'}</legend>
+      <legend><img src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/icon-config.gif" alt="" />{l s='Configuration' mod='cardpaysolutions'}</legend>
       <div style="clear: both;">
         <label>Live mode</label>
         <div class="margin-form" style="padding-top:5px;">

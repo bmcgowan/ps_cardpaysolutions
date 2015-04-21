@@ -30,6 +30,7 @@
       <hr>
       {if !$cardpay_live_mode}<p class="alert alert-warning">Warning: Payment Module is in test mode. Transaction will not be processed or funded.</p>{/if}
       {if isset($smarty.get.cardpayError)}<p class="alert alert-danger">{$smarty.get.cardpayError|escape:'htmlall':'UTF-8'}</p>{/if}
+      {if isset($cardpay_error)}<p class="alert alert-danger">{$cardpay_error|escape:'htmlall':'UTF-8'}</p>{/if}
       <form action="{$form_url|escape:'htmlall':'UTF-8'}" method="post" name="cardpay_form" id="cardpay_form" class="form-horizontal">
         <input type="hidden" name="billing-cc-exp" id="billing-cc-exp" value=""/>
         <div class="form-group">
@@ -85,7 +86,7 @@
         </div>
         <div class="form-group">
           <div class="col-lg-3 col-lg-offset-3">
-            <input type="submit" id="cardpay_submit" value="{l s='Complete Order' mod='cardpaysolutions'}" class="button btn btn-default" />
+            <input type="submit" id="cardpay_submit" value="{l s='Complete Order' mod='cardpaysolutions'}" class="button btn btn-default"{if isset($cardpay_error)} disabled{/if} />
           </div>
         </div>
       </form>

@@ -76,9 +76,9 @@ class Cardpaysolutions extends PaymentModule
 
 		include(dirname(__FILE__).'/sql/install.php');
 
-		return parent::install() && $this->registerHook('header') && $this->registerHook('payment') && $this->registerHook('paymentTop')
-			&& $this->registerHook('adminOrder') && $this->registerHook('BackOfficeHeader') && $this->registerHook('orderConfirmation')
-			&& $this->registerHook('displayAdminOrderTabOrder') && $this->registerHook('displayAdminOrderContentOrder');
+		return parent::install() && $this->registerHook('header') && $this->registerHook('payment') && $this->registerHook('adminOrder')
+			&& $this->registerHook('BackOfficeHeader') && $this->registerHook('orderConfirmation') && $this->registerHook('displayAdminOrderTabOrder')
+			&& $this->registerHook('displayAdminOrderContentOrder');
 	}
 
 	public function uninstall()
@@ -542,11 +542,6 @@ class Cardpaysolutions extends PaymentModule
 
 	public function hookPayment()
 	{
-		return $this->display(__FILE__, 'views/templates/hook/payment-bottom.tpl');
-	}
-
-	public function hookPaymentTop()
-	{
 		if (!$this->active)
 			return;
 		if (!Configuration::get('CARDPAYSOLUTIONS_API_KEY'))
@@ -577,6 +572,10 @@ class Cardpaysolutions extends PaymentModule
 		$xml_request->appendChild($xml_trans);
 		$response = $this->doPost($xml_request);
 
+		if ((string)$response->result != 1)
+		{
+			$this->context->smarty->assign('cardpay_error', $response->{'result-text'});
+		}
 		$this->context->smarty->assign(array(
 			'form_url' => $response->{'form-url'},
 			'current_year' => date('y'),
@@ -589,7 +588,6 @@ class Cardpaysolutions extends PaymentModule
 			'cardpay_jc_enabled' => Configuration::get('CARDPAYSOLUTIONS_JC_ENABLED'),
 			'cardpay_dn_enabled' => Configuration::get('CARDPAYSOLUTIONS_DN_ENABLED')
 		));
-
 		return $this->display(__FILE__, (_PS_VERSION_ > '1.5.9.9' ? 'views/templates/hook/1.6/':'views/templates/hook/1.5/').'payment.tpl');
 	}
 

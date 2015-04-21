@@ -26,6 +26,7 @@
   <h3 class="cc-head-1-5"><img alt="" src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/secure-icon.png" class="secure-icon" />{l s='Secure Credit Card Payment' mod='cardpaysolutions'}</h3>
   {if !$cardpay_live_mode}<div class="warning"><p>Warning: Payment Module is in test mode. Transaction will not be processed or funded.</p></div>{/if}
   {if isset($smarty.get.cardpayError)}<div class="error"><p>{$smarty.get.cardpayError|escape:'htmlall':'UTF-8'}</p></div>{/if}
+  {if isset($cardpay_error)}<div class="error"><p>{$cardpay_error|escape:'htmlall':'UTF-8'}</p></div>{/if}
   <form action="{$form_url|escape:'htmlall':'UTF-8'}" method="post" name="cardpay_form" id="cardpay_form" class="form-horizontal">
     <input type="hidden" name="billing-cc-exp" id="billing-cc-exp" value=""/>
     <p class="text">
@@ -73,7 +74,7 @@
     </p>
     <p class="cc-actions">
       <label>&nbsp;</label>
-      <input type="submit" id="cardpay_submit" value="{l s='Complete Order' mod='cardpaysolutions'}" class="button btn btn-primary exclusive" style="display:inline;" />
+      <input type="submit" id="cardpay_submit" value="{l s='Complete Order' mod='cardpaysolutions'}" class="button btn btn-primary exclusive" style="display:inline;"{if isset($cardpay_error)} disabled{/if} />
     </p>
   </form>
 </div>
