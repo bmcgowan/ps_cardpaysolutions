@@ -47,7 +47,7 @@ class Cardpaysolutions extends PaymentModule
 		parent::__construct();
 
 		$this->displayName = $this->l('Cardpay Solutions');
-		$this->description = $this->l('Accept credit card payments (specializing in high-risk merchant categories)');
+		$this->description = $this->l('Accept credit card payments (specializing in both traditional and high-risk merchant categories)');
 
 		$this->confirmUninstall = $this->l('Are you sure you want to uninstall the Cardpay Solutions module?');
 
