@@ -26,11 +26,11 @@
   <h3><i class="icon icon-credit-card"></i> {l s='Cardpay Solutions' mod='cardpaysolutions'}</h3>
   <div class="row cardpay-header">
     <div class="col-lg-9">
-      <a rel="external" href="http://www.cardpaymerchant.com?pid=8bfc5cfdfc677036" class="cardpay-logo"target="_blank">
+      <a rel="external" href="http://www.cardpaymerchant.com/prestashop?pid=8bfc5cfdfc677036" class="cardpay-logo"target="_blank">
         <img alt="Cardpay Solutions" width="254" height="59" src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/cardpay_logo.png">
       </a>
       <span class="cardpay-intro">Secure payment software for both traditional and high-risk merchants.</span>
-      <a class="cardpay-create-btn" rel="external" href="http://www.cardpaymerchant.com?pid=8bfc5cfdfc677036" target="_blank">
+      <a class="cardpay-create-btn" rel="external" href="http://www.cardpaymerchant.com/prestashop?pid=8bfc5cfdfc677036" target="_blank">
         <span>Apply Online Today!</span>
       </a>
     </div>
@@ -92,7 +92,7 @@
           <h3>Accept all major credit cards!</h3>
           <p>
             <img class="cardpay-cc" alt="Cardpay Solutions" src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/cardpay-cc.png">
-            <a class="cardpay-module-btn" href="http://www.cardpaymerchant.com?pid=8bfc5cfdfc677036" target="_blank">
+            <a class="cardpay-module-btn" href="http://www.cardpaymerchant.com/prestashop?pid=8bfc5cfdfc677036" target="_blank">
               <strong>Apply Online Today!</strong>
             </a>
           </p>

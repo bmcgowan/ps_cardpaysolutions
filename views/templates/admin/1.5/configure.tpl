@@ -25,11 +25,11 @@
 <link href="{$module_dir|escape:'htmlall':'UTF-8'}views/css/1.5/back.css" rel="stylesheet" type="text/css">
 <div class="cardpay-module-wrapper">
   <div class="cardpay-module-header">
-    <a rel="external" href="http://www.cardpaymerchant.com?pid=8bfc5cfdfc677036" target="_blank">
+    <a rel="external" href="http://www.cardpaymerchant.com/prestashop?pid=8bfc5cfdfc677036" target="_blank">
       <img class="cardpay-logo" alt="Cardpay Solutions" width="254" height="59" src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/cardpay_logo.png">
     </a>
     <span class="cardpay-module-intro">Secure payment software for both traditional and high-risk merchants.</span>
-    <a class="cardpay-module-create-btn" rel="external" href="http://www.cardpaymerchant.com?pid=8bfc5cfdfc677036" target="_blank">
+    <a class="cardpay-module-create-btn" rel="external" href="http://www.cardpaymerchant.com/prestashop?pid=8bfc5cfdfc677036" target="_blank">
       <span>Apply Online Today!</span>
     </a>
   </div>
@@ -82,7 +82,7 @@
         <h3>Accept all major credit cards!</h3>
         <p>
           <img class="cardpay-cc" alt="Cardpay Solutions" src="{$module_dir|escape:'htmlall':'UTF-8'}views/img/cardpay-cc.png">
-          <a class="cardpay-module-btn" href="http://www.cardpaymerchant.com?pid=8bfc5cfdfc677036" target="_blank">
+          <a class="cardpay-module-btn" href="http://www.cardpaymerchant.com/prestashop?pid=8bfc5cfdfc677036" target="_blank">
             <strong>Apply Online Today!</strong>
           </a>
         </p>
