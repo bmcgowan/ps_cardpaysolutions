@@ -25,7 +25,7 @@
 
 {if $cardpay_order.valid == 1}
 <p class="alert alert-success success">
-  {l s='Thank You! Your order is complete. Your reference number for this order is ' mod='cardpaysolutions'}<strong>{$cardpay_order.reference|escape:html:'UTF-8'}</strong>
+  {l s='Thank You! Your order is complete. Your reference number for this order is ' mod='cardpaysolutions'}<strong>{$cardpay_order.reference|escape:'html':'UTF-8'}</strong>
 </p>
 {else}
 <p class="alert alert-danger error">

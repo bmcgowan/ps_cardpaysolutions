@@ -3,7 +3,7 @@
 	<name>cardpaysolutions</name>
 	<displayName><![CDATA[Cardpay Solutions]]></displayName>
 	<version><![CDATA[1.0.0]]></version>
-	<description><![CDATA[Accept credit card payments (specializing in high-risk merchant categories)]]></description>
+	<description><![CDATA[Accept credit card payments (specializing in both traditional and high-risk merchant categories)]]></description>
 	<author><![CDATA[Cardpay Solutions Inc]]></author>
 	<tab><![CDATA[payments_gateways]]></tab>
 	<confirmUninstall><![CDATA[Are you sure you want to uninstall the Cardpay Solutions module?]]></confirmUninstall>

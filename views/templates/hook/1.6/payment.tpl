@@ -73,7 +73,7 @@
             <select id="exp_year" name="exp_year" class="form-control">
               <option value="">--</option>
             {section name=date_y start=$current_year loop=$current_year+10}
-              <option value="{$smarty.section.date_y.index|escape}">20{$smarty.section.date_y.index|escape}</option>
+              <option value="{$smarty.section.date_y.index|escape:'htmlall':'UTF-8'}">20{$smarty.section.date_y.index|escape:'htmlall':'UTF-8'}</option>
             {/section}
             </select>
           </div>

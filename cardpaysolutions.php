@@ -37,6 +37,7 @@ class Cardpaysolutions extends PaymentModule
 		$this->tab           = 'payments_gateways';
 		$this->version       = '1.0.0';
 		$this->author        = 'Cardpay Solutions Inc';
+		$this->module_key    = '82a58aa802f1dcf3971a79c229d0cc59';
 		$this->need_instance = 0;
 
 		/**
@@ -573,9 +574,8 @@ class Cardpaysolutions extends PaymentModule
 		$response = $this->doPost($xml_request);
 
 		if ((string)$response->result != 1)
-		{
 			$this->context->smarty->assign('cardpay_error', $response->{'result-text'});
-		}
+
 		$this->context->smarty->assign(array(
 			'form_url' => $response->{'form-url'},
 			'current_year' => date('y'),
