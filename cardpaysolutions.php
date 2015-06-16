@@ -35,7 +35,7 @@ class Cardpaysolutions extends PaymentModule
 	{
 		$this->name          = 'cardpaysolutions';
 		$this->tab           = 'payments_gateways';
-		$this->version       = '1.0.0';
+		$this->version       = '1.0.1';
 		$this->author        = 'Cardpay Solutions Inc';
 		$this->module_key    = '82a58aa802f1dcf3971a79c229d0cc59';
 		$this->need_instance = 0;
@@ -107,6 +107,7 @@ class Cardpaysolutions extends PaymentModule
 		/**
 		 * If values have been submitted in the form, process.
 		 */
+		$api_key = Tools::getValue('CARDPAYSOLUTIONS_API_KEY');
 		$this->context->smarty->assign('module_dir', $this->_path);
 
 		if (_PS_VERSION_ > '1.5.9.9')
@@ -120,7 +121,7 @@ class Cardpaysolutions extends PaymentModule
 
 		if (Tools::isSubmit('submitCardpaysolutionsModule'))
 		{
-			if (!empty(Tools::getValue('CARDPAYSOLUTIONS_API_KEY')))
+			if (!empty($api_key))
 			{
 				if (_PS_VERSION_ > '1.5.9.9')
 				{
