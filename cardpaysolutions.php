@@ -559,7 +559,7 @@ class Cardpaysolutions extends PaymentModule
 		$xml_request->formatOutput = true;
 		$xml_trans = $xml_request->createElement(Tools::safeOutput(Configuration::get('CARDPAYSOLUTIONS_DEFAULT_TYPE')));
 		$this->appendXmlNode($xml_request, $xml_trans, 'api-key', Tools::safeOutput($api_key));
-		$this->appendXmlNode($xml_request, $xml_trans, 'redirect-url', _PS_BASE_URL_.$this->_path.'validation.php');
+		$this->appendXmlNode($xml_request, $xml_trans, 'redirect-url', _PS_BASE_URL_.$this->_path.'validation.php?cart='.$cart->id);
 		$this->appendXmlNode($xml_request, $xml_trans, 'amount', number_format((float)$cart->getOrderTotal(true, 3), 2, '.', ''));
 		$this->appendXmlNode($xml_request, $xml_trans, 'order-id', (int)$cart->id);
 		$this->appendXmlNode($xml_request, $xml_trans, 'po-number', (int)$cart->id);
@@ -596,7 +596,7 @@ class Cardpaysolutions extends PaymentModule
 	{
 		$cart = $this->context->cart;
 
-		if (Validate::isLoadedObject($cart) && !Order::getOrderByCartId((int)Tools::getValue('cart')))
+		if (Validate::isLoadedObject($cart) && $cart->id == Tools::getValue('cart') && !Order::getOrderByCartId((int)Tools::getValue('cart')))
 		{
 			$customer = new Customer((int)$cart->id_customer);
 			$mode = Configuration::get('CARDPAYSOLUTIONS_LIVE_MODE');
