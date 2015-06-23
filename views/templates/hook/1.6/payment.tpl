@@ -86,7 +86,7 @@
         </div>
         <div class="form-group">
           <div class="col-lg-3 col-lg-offset-3">
-            <input type="submit" id="cardpay_submit" value="{l s='Complete Order' mod='cardpaysolutions'}" class="button btn btn-default"{if isset($cardpay_error)} disabled{/if} />
+            <input type="submit" id="cardpay_submit" value="{l s='Complete Order' mod='cardpaysolutions'}" class="button btn"{if isset($cardpay_error)} disabled{/if} />
           </div>
         </div>
       </form>

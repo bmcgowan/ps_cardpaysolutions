@@ -31,3 +31,18 @@ $(document).ready(function () {
     $("#billing-cc-exp").val($("#exp_month").val()+$("#exp_year").val());
   });
 });
+
+$(document).ready(function () {
+  $("#cardpay_submit").click(function () {
+  	$("#cardpay_submit").val("Processing, please wait.....");
+	$("#cardpay_submit").attr("disabled", true);
+  });
+});
+
+$(document).ready(function () {
+  if (window.location.search.match("cardpayError")) {
+  	$('html, body').animate({
+      scrollTop: $("#HOOK_PAYMENT").offset().top
+    }, 100);
+  }
+});

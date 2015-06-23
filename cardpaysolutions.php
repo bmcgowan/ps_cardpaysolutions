@@ -35,7 +35,7 @@ class Cardpaysolutions extends PaymentModule
 	{
 		$this->name          = 'cardpaysolutions';
 		$this->tab           = 'payments_gateways';
-		$this->version       = '1.0.1';
+		$this->version       = '1.0.2';
 		$this->author        = 'Cardpay Solutions Inc';
 		$this->module_key    = '82a58aa802f1dcf3971a79c229d0cc59';
 		$this->need_instance = 0;
@@ -72,8 +72,8 @@ class Cardpaysolutions extends PaymentModule
 		Configuration::updateValue('CARDPAYSOLUTIONS_MC_ENABLED', true);
 		Configuration::updateValue('CARDPAYSOLUTIONS_DS_ENABLED', true);
 		Configuration::updateValue('CARDPAYSOLUTIONS_AX_ENABLED', true);
-		Configuration::updateValue('CARDPAYSOLUTIONS_JC_ENABLED', false);
-		Configuration::updateValue('CARDPAYSOLUTIONS_DN_ENABLED', false);
+		Configuration::updateValue('CARDPAYSOLUTIONS_JC_ENABLED', true);
+		Configuration::updateValue('CARDPAYSOLUTIONS_DN_ENABLED', true);
 
 		include(dirname(__FILE__).'/sql/install.php');
 
