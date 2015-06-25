@@ -29,7 +29,7 @@
   <table class="table" style="margin-bottom:20px;">
     <tr>
       <td style="width:200px;">{l s='Status:' mod='cardpaysolutions'}</td>
-      <td><span style="font-weight: bold; color: {if $cardpay_responsetext == 'SUCCESS'}green;">{l s='Approved' mod='cardpaysolutions'}{else}red;">{l s='Declined' mod='cardpaysolutions'}{/if}</span></td>
+      <td><span style="font-weight: bold; color: {if $cardpay_responsetext == 'SUCCESS' || $cardpay_responsetext == 'Approval'}green;">{l s='Approved' mod='cardpaysolutions'}{else}red;">{l s='Declined' mod='cardpaysolutions'}{/if}</span></td>
     </tr>
     <tr>
       <td>{l s='Bank message:' mod='cardpaysolutions'}</td>
