@@ -618,7 +618,7 @@ class Cardpaysolutions extends PaymentModule
 					'responsetext' => pSQL((string)$response->{'result-text'}),
 					'cc_last_four' => pSQL(Tools::substr($response->billing->{'cc-number'}, -4)),
 					'card_type' => pSQL($this->getCardType((string)$response->billing->{'cc-number'})),
-					'amount' => pSQL(number_format((float)$cart->getOrderTotal(true, 3), 2, '.', '')),
+					'amount' => pSQL(number_format((float)$response->{'amount'}, 2, '.', '')),
 					'cardholder_name' => pSQL($customer->firstname.' '.$customer->lastname),
 					'ccexp' => pSQL($response->billing->{'cc-exp'}),
 					'authcode' => pSQL((string)$response->{'authorization-code'}),
@@ -627,7 +627,7 @@ class Cardpaysolutions extends PaymentModule
 					'cvvresponse' => pSQL((string)$response->{'cvv-result'}),
 					'date_add' => date('Y-m-d H:i:s')
 				));
-				$this->validateOrder((int)$cart->id, (int)Configuration::get('PS_OS_PAYMENT'), (float)$cart->getOrderTotal(),
+				$this->validateOrder((int)$cart->id, (int)Configuration::get('PS_OS_PAYMENT'), (float)$response->{'amount'},
 					$this->displayName, null, array(), null, false, $cart->secure_key);
 				Configuration::updateValue('CARDPAYSOLUTIONS_CONF_OK', true);
 
