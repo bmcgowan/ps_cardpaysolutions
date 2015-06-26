@@ -33,7 +33,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-  $("#cardpay_submit").click(function () {
+  $("#cardpay_form").submit(function () {
   	$("#cardpay_submit").val("Processing, please wait.....");
 	$("#cardpay_submit").attr("disabled", true);
   });
